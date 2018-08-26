@@ -143,14 +143,16 @@ export class FormDocsV2Component implements OnInit {
       content: '',
       sub1: []
     };
+    let mIndex = parseInt(index , 0)
 
     if (isDefined(index)) {
 
+
       let headingCount = this.data[indexp3].sub1[indexp2].sub1[index].heading;
       newObject.heading = this.getHeading(headingCount);
-      let index = index + 1;
-      this.data[indexp3].sub1[indexp2].sub1.splice(index, 1, newObject);
+      console.log(newObject);
 
+      this.data[indexp3].sub1[indexp2].sub1.splice(index+1, 1, newObject);
     } else if (isDefined(indexp2)) {
 
       if (type == this.HEADING_CONST) {
@@ -207,8 +209,6 @@ export class FormDocsV2Component implements OnInit {
 
   }
 
-
-
   public isZeroLength(item) {
     let bool = true;
     if ( item > 0) {
@@ -216,6 +216,5 @@ export class FormDocsV2Component implements OnInit {
     }
     return bool;
   }
-
 
 }

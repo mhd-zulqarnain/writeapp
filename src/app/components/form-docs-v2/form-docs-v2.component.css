@@ -39,7 +39,9 @@
   position: absolute;
   left: 170px;
   top: 3px;
+  font-size: 23px;
 }
-.add-btn{
-  margin-top: 2px;
+.pos-absolute-add{
+  left: 210px!important;
 }
+
