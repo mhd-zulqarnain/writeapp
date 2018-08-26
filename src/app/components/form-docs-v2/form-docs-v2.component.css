@@ -1,0 +1,45 @@
+
+/* You can add global styles to this file, and also import other style files */
+
+.divPara{
+  border: #000 dotted 1px;
+  margin:12px 90px;
+  padding: 4px;
+}
+.divAuth{
+  border: #000 dotted 1px;
+}
+.btn-cross-style{
+  position: absolute;
+  top: -15%;
+  right: -20px;
+
+
+}
+.divTitle{
+  height:100px;
+  margin:0 90px;
+  padding: 4px;
+}
+.main-heading{
+  margin:0 90px;
+  padding: 4px;
+}
+.sub-heading  {
+  margin:0 90px;
+  padding: 4px;
+  background: cornflowerblue;
+
+}
+.pos-relative{
+  margin-top: 3px;
+  position: relative;
+}
+.pos-absolute{
+  position: absolute;
+  left: 170px;
+  top: 3px;
+}
+.add-btn{
+  margin-top: 2px;
+}

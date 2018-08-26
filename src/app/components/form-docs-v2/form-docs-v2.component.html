@@ -1,0 +1,119 @@
+<div class="col-md-12  mt-2 mb-2"
+     style="border:solid #0b2e13 1px;margin: 0 auto; ">
+  <form novalidate [formGroup]="docsForm" class="form-container">
+
+    <div class="row">
+      <div class="col-md-8 divTitle">
+        <textarea class="form-control" placeholder="Title of paper" rows="3"></textarea>
+      </div>
+    </div>
+
+    <!------------the auther group----------->
+    <!--<div class="row "
+         style=" margin: 0 90px">
+      <div class="col-md-3 divAuth">
+        <textarea class="form-control"  rows="3" placeholder="Author" ></textarea>
+      </div>
+
+      <div class="col-md-3 divAuth" style=" position: relative">
+        <button class="d-block btn btn-default " *ngIf="btn" (click)="showDiv(this)"
+                style="position: absolute; top: 40%;right: -60px">Add
+        </button>
+      </div>
+      <div class="col-md-3 divAuth" *ngIf="box" style="position: relative">
+        <button class="btn btn-danger" *ngIf="dlt" (click)="hideDiv()"
+                style="position: absolute; top: 0%;right: -70px">delete
+        </button>
+      </div>
+
+    </div>-->
+    <!------------the auther group end----------->
+
+    <div class="row container-para">
+
+      <div class="col-md-8 divPara  " *ngFor="let item of data ; index as firstPr " style=" position: relative">
+
+        <div class="col-md-8">
+
+          {{item.heading}}-
+          {{item.content}}
+          <h5>Subheading</h5><!--
+          <input type="text" [(ngModel)]="item.heading" placeholder=" Enter heading" [formControlName]= item.id ><br>
+          <textarea  [(ngModel)]="item.content" placeholder=" Enter content" [formControlName]= item.cid></textarea>-->
+<!--
+          <textarea class="form-control" [formControlName]=item.id   rows="3" [placeholder]=item.heading  ></textarea>
+-->
+
+<!--          <div ngClass="{'hide': !arrayLength(subitem),'show': arrayLength(subitem)}"></div>-->
+          <span style="margin: 0 auto" id="mainLabel" ngIF="!arrayLength(subitem)" data-target="openMainCategoryDropdown" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"> <i class="fas fa-2x fa-plus-circle add-btn"></i> </span>
+          <ul style="margin:10px; width:212px" class="dropdown-menu" id="openMainCategoryDropdown" aria-labelledby="mainLabel">
+            <li style="padding:10px" (click)="addOption(null,null, firstPr,'heading')">Heading</li>
+            <li style="padding:10px" (click)="addOption(null,null, firstPr,'author')">SubHeading</li>
+          </ul>
+
+
+        </div>
+
+        <div *ngIf="item.sub1"  >
+          <div *ngFor="let subitem of item.sub1 ; index as secondPr " class="{{item.class}} pos-relative">
+
+            <h5>Subheading {{subitem.heading}}</h5>
+<!--
+            <textarea class="form-control" [formControlName]=subitem.id   rows="3" [placeholder]=subitem.heading ></textarea>
+-->
+
+           <!-- <input type="text" [(ngModel)]="subitem.heading" placeholder=" Enter heading" [formControlName]= subitem.id><br>
+            <textarea type="text" [(ngModel)]="subitem.content" placeholder=" Enter content" [formControlName]= subitem.cid></textarea>
+-->
+            <i class="far fa-2x fa-times-circle btn-cross-style close pos-absolute" (click)="removePara(null,secondPr, firstPr)" style="margin: 0 auto "></i>
+
+            <a href="javascript:void(0)">      <span style="margin: 0 auto" id="subLabel" data-target="openSubCategoryDropdown" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false"> <i class="fas fa-2x fa-plus-circle add-btn"></i> </span>
+            <ul style="margin:10px; width:212px" class="dropdown-menu" id="openSubCategoryDropdown" aria-labelledby="subLabel">
+              <li style="padding:10px" (click)="addOption(null,secondPr, firstPr,'heading')">Heading</li>
+              <li style="padding:10px" (click)="addOption(null,secondPr, firstPr,'subHeading')">SubHeading</li>
+            </ul>
+            </a>
+            <div *ngIf="item.sub1" >
+              <div *ngFor="let nestedsubitem of subitem.sub1 ; index as thirdPr" class="{{item.class}} pos-relative">
+
+                <h5>Subheading {{nestedsubitem.heading}}</h5>
+<!--                <textarea class="form-control" [formControlName]=nestedsubitem.id   rows="3" [placeholder]=nestedsubitem.heading ></textarea>-->
+                <i class="far fa-2x fa-times-circle btn-cross-style close pos-absolute" (click)="removePara(thirdPr,secondPr, firstPr)" style="margin: 0 auto "></i>
+
+                <a href="javascript:void(0)"><span style="margin: 0 ">
+                  <i class="fas fa-2x fa-plus-circle add-btn"(click)="addOption(thirdPr,secondPr, firstPr,'heading')">
+                  </i> </span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <!------------the paragarph group ----------->
+    <div class="row">
+      <div class="col-md-4  mt-3 mb-3" style="position: relative; margin:0 auto; " id="">
+        <a href="javascript:void(0)">
+
+        </a>
+      </div>
+
+    </div>
+
+
+    <!------------the paragarph group end ----------->
+
+  </form>
+  <button class="btn-default" (click)="submitForm()"> Generate</button>
+</div>
+
+
+
+
+
+
+

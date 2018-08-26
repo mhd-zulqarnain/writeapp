@@ -1,0 +1,75 @@
+.body{
+margin: 0.5em;
+}
+.tool-bar{
+    width: 42%;
+    align-items:'center';
+    
+  }
+  .tool-bar-div{
+    /* width: 100%; */
+    text-align: center;
+  }
+  .item-div{
+   margin-left: 5%;
+  }
+  .nav-class {
+      display: 'inline';
+      align-items:'center';
+      width: 30%;
+  }
+  .btn{
+      align-items: 'center';
+      margin-left: 37%
+  }
+  .text-left {
+    text-align: left;
+  }
+  
+  .text-right {
+    text-align: right;
+  }
+  
+  .text-center {
+    text-align: center;
+    margin-left: auto;
+
+  }
+  .barDiv{
+
+    border: 0;
+    padding: 1em;
+    width: 60%;
+    margin-bottom: 2em;
+    height:15%;
+    
+  }
+  .centerThat{
+    display:flex; 
+    justify-content:center; 
+    align-items:center;
+    margin-top: 2%;
+}
+.authorName{
+  display:flex; 
+  justify-content:space-between; 
+  align-items:space-between;
+  width: 100%;
+}
+.abstract{
+  display:flex; 
+  justify-content:flex-start; 
+  align-items:flex-start;
+}
+.center{
+  display:flex; 
+  justify-content:center; 
+  align-items:center;
+ 
+}
+
+.active-input{
+  background-color: lightgreen;
+}
+
+.sticky-top { top: 0.5em; }

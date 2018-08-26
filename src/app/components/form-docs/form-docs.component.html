@@ -1,0 +1,877 @@
+<div>
+  <nav style="width:100%; background-color:lightblue;" class="navbar sticky-top">
+    <div style="width:100%; text-align:center" class="navbar-brand">
+      <h4>WriteApp</h4>
+      <h6>A server based application to make write-ups easy.</h6>
+    </div>
+  </nav>
+</div>
+
+<div class="container">
+
+  <div>
+  </div>
+  <!-- <div class="form-group" data-toggle="tooltip" title="select tittle">
+    <select (change)="selecttype($event)" class="custom-select mt-2">
+      <option value="title">title</option>
+      <option value="subTitle">Sub title</option>
+      <option value="author1">first Author</option>
+      <option value="author2">second Author</option>
+      <option value="Abstract">Abstract</option>
+      <option value="introduction">introduction</option>
+      <option value="heading1">heading 1</option>
+      <option value="heading2">heading 2</option>
+      <option value="heading3">heading 3</option>
+      <option value="heading4">heading 4</option>
+      <option value="heading5">heading 5</option>
+      <option value="Refrences">Refrences</option>
+    </select>
+  </div> -->
+  <form novalidate [formGroup]="docsForm" class="form-container">
+
+
+
+
+    <div *ngIf="selectType== 'title'">
+
+      <nav style="width:100%; background-color:lightcyan;" class="navbar form-inline sticky-top ">
+
+        <div class="form-group" data-toggle="tooltip" title="select font size!">
+          <select (change)="selectChangeHandler($event)" (click)="getTitleStyle()" class="custom-select mt-2">
+            <option selected value=11>11</option>
+            <option value=13>13</option>
+            <option value=15>15</option>
+            <option value=17>17</option>
+            <option value=19>19</option>
+            <option value=21>21</option>
+            <option value=23>23</option>
+            <option value=25>25</option>
+          </select>
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Bold family!">
+          <i *ngIf="!styleObjTitle.bold" (click)="getTitleStyle('boldTrue')" style="opacity: .5;" class="fas fa-bold"></i>
+          <i *ngIf="styleObjTitle.bold" (click)="getTitleStyle('boldFalse')" style="opacity: 1;" class="fas fa-bold"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Italic family!">
+          <i *ngIf='!styleObjTitle.isItalic' (click)="getTitleStyle( 'italicTrue')" style="opacity: 0.5;" class="fas fa-italic"></i>
+          <i *ngIf='styleObjTitle.isItalic' (click)="getTitleStyle( 'italicFalse')" style="opacity: 1;" class="fas fa-italic"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="underline family!">
+          <i *ngIf='!styleObjTitle.isUnderline' (click)="getTitleStyle( 'isUnderlineTrue')" style="opacity: 0.5;" class="fas fa-underline"></i>
+          <i *ngIf='styleObjTitle.isUnderline' (click)="getTitleStyle('isUnderlineFalse')" style="opacity: 1;" class="fas fa-underline"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Right!">
+          <i *ngIf='!styleObjTitle.alignRight' (click)="getTitleStyle( 'alignRightTrue')" style="opacity: 0.5;" class="fas fa-align-right"></i>
+          <i *ngIf='styleObjTitle.alignRight' (click)="getTitleStyle( 'alignRightFalse')" style="opacity: 1;" class="fas fa-align-right"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Center !">
+          <i *ngIf='!styleObjTitle.aligncenter' (click)="getTitleStyle( 'aligncenterTrue')" style="opacity: 0.5;" class="fas fa-align-center"></i>
+          <i *ngIf='styleObjTitle.aligncenter' (click)="getTitleStyle( 'aligncenterFalse')" style="opacity: 1;" class="fas fa-align-center"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Left!">
+          <i *ngIf='!styleObjTitle.alignLeft' (click)="getTitleStyle( 'alignLeftTrue')" style="opacity: .5;" class="fas fa-align-left"></i>
+          <i *ngIf='styleObjTitle.alignLeft' (click)="getTitleStyle( 'alignLeftFalse')" style="opacity: 1;" class="fas fa-align-left"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align judtify!">
+          <i *ngIf='!styleObjTitle.alignJustify' (click)="getTitleStyle( 'alignJustifyTrue')" style="opacity: 0.5;" class="fas fa-align-justify"></i>
+          <i *ngIf='styleObjTitle.alignJustify' (click)="getTitleStyle( 'alignJustifyFalse')" style="opacity: 1;" class="fas fa-align-justify"></i>
+
+        </div>
+
+      </nav>
+    </div>
+
+
+
+    <div *ngIf="selectType== 'subTitle' ">
+
+      <nav style="background-color:lightslategray" class="navbar navbar-toggleable-md navbar-light bg-faded">
+
+        <div class="form-group" data-toggle="tooltip" title="select font size!">
+          <select (change)="selectChangeHandler($event)" (click)="getTitleStyle()" class="custom-select mt-2">
+            <option selected value=11>11</option>
+            <option value=13>13</option>
+            <option value=15>15</option>
+            <option value=17>17</option>
+            <option value=19>19</option>
+            <option value=21>21</option>
+            <option value=23>23</option>
+            <option value=25>25</option>
+          </select>
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Bold family!">
+          <i *ngIf="!styleObjSubtitle.bold" (click)="getTitleStyle('boldTrue')" style="opacity: .5;" class="fas fa-bold"></i>
+          <i *ngIf="styleObjSubtitle.bold" (click)="getTitleStyle('boldFalse')" style="opacity: 1;" class="fas fa-bold"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Italic family!">
+          <i *ngIf='!styleObjSubtitle.isItalic' (click)="getTitleStyle( 'italicTrue')" style="opacity: 0.5;" class="fas fa-italic"></i>
+          <i *ngIf='styleObjSubtitle.isItalic' (click)="getTitleStyle( 'italicFalse')" style="opacity: 1;" class="fas fa-italic"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="underline family!">
+          <i *ngIf='!styleObjSubtitle.isUnderline' (click)="getTitleStyle( 'isUnderlineTrue')" style="opacity: 0.5;" class="fas fa-underline"></i>
+          <i *ngIf='styleObjSubtitle.isUnderline' (click)="getTitleStyle('isUnderlineFalse')" style="opacity: 1;" class="fas fa-underline"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Right!">
+          <i *ngIf='!styleObjSubtitle.alignRight' (click)="getTitleStyle( 'alignRightTrue')" style="opacity: 0.5;" class="fas fa-align-right"></i>
+          <i *ngIf='styleObjSubtitle.alignRight' (click)="getTitleStyle( 'alignRightFalse')" style="opacity: 1;" class="fas fa-align-right"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Center !">
+          <i *ngIf='!styleObjSubtitle.aligncenter' (click)="getTitleStyle( 'aligncenterTrue')" style="opacity: 0.5;" class="fas fa-align-center"></i>
+          <i *ngIf='styleObjSubtitle.aligncenter' (click)="getTitleStyle( 'aligncenterFalse')" style="opacity: 1;" class="fas fa-align-center"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Left!">
+          <i *ngIf='!styleObjSubtitle.alignLeft' (click)="getTitleStyle( 'alignLeftTrue')" style="opacity: .5;" class="fas fa-align-left"></i>
+          <i *ngIf='styleObjSubtitle.alignLeft' (click)="getTitleStyle( 'alignLeftFalse')" style="opacity: 1;" class="fas fa-align-left"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align judtify!">
+          <i *ngIf='!styleObjSubtitle.alignJustify' (click)="getTitleStyle( 'alignJustifyTrue')" style="opacity: 0.5;" class="fas fa-align-justify"></i>
+          <i *ngIf='styleObjSubtitle.alignJustify' (click)="getTitleStyle( 'alignJustifyFalse')" style="opacity: 1;" class="fas fa-align-justify"></i>
+
+        </div>
+
+      </nav>
+    </div>
+
+    <div *ngIf="selectType== 'author1'">
+
+      <nav style="background-color:lightslategray" class="navbar navbar-toggleable-md navbar-light bg-faded">
+
+        <div class="form-group" data-toggle="tooltip" title="select font size!">
+          <select (change)="selectChangeHandler($event)" (click)="getTitleStyle()" class="custom-select mt-2">
+            <option selected value=11>11</option>
+            <option value=13>13</option>
+            <option value=15>15</option>
+            <option value=17>17</option>
+            <option value=19>19</option>
+            <option value=21>21</option>
+            <option value=23>23</option>
+            <option value=25>25</option>
+          </select>
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Bold family!">
+          <i *ngIf="!styleObjAuthor1.bold" (click)="getTitleStyle('boldTrue')" style="opacity: .5;" class="fas fa-bold"></i>
+          <i *ngIf="styleObjAuthor1.bold" (click)="getTitleStyle('boldFalse')" style="opacity: 1;" class="fas fa-bold"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Italic family!">
+          <i *ngIf='!styleObjAuthor1.isItalic' (click)="getTitleStyle( 'italicTrue')" style="opacity: 0.5;" class="fas fa-italic"></i>
+          <i *ngIf='styleObjAuthor1.isItalic' (click)="getTitleStyle( 'italicFalse')" style="opacity: 1;" class="fas fa-italic"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="underline family!">
+          <i *ngIf='!styleObjAuthor1.isUnderline' (click)="getTitleStyle( 'isUnderlineTrue')" style="opacity: 0.5;" class="fas fa-underline"></i>
+          <i *ngIf='styleObjAuthor1.isUnderline' (click)="getTitleStyle('isUnderlineFalse')" style="opacity: 1;" class="fas fa-underline"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Right!">
+          <i *ngIf='!styleObjAuthor1.alignRight' (click)="getTitleStyle( 'alignRightTrue')" style="opacity: 0.5;" class="fas fa-align-right"></i>
+          <i *ngIf='styleObjAuthor1.alignRight' (click)="getTitleStyle( 'alignRightFalse')" style="opacity: 1;" class="fas fa-align-right"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Center !">
+          <i *ngIf='!styleObjAuthor1.aligncenter' (click)="getTitleStyle( 'aligncenterTrue')" style="opacity: 0.5;" class="fas fa-align-center"></i>
+          <i *ngIf='styleObjAuthor1.aligncenter' (click)="getTitleStyle( 'aligncenterFalse')" style="opacity: 1;" class="fas fa-align-center"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Left!">
+          <i *ngIf='!styleObjAuthor1.alignLeft' (click)="getTitleStyle( 'alignLeftTrue')" style="opacity: .5;" class="fas fa-align-left"></i>
+          <i *ngIf='styleObjAuthor1.alignLeft' (click)="getTitleStyle( 'alignLeftFalse')" style="opacity: 1;" class="fas fa-align-left"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align judtify!">
+          <i *ngIf='!styleObjAuthor1.alignJustify' (click)="getTitleStyle( 'alignJustifyTrue')" style="opacity: 0.5;" class="fas fa-align-justify"></i>
+          <i *ngIf='styleObjAuthor1.alignJustify' (click)="getTitleStyle( 'alignJustifyFalse')" style="opacity: 1;" class="fas fa-align-justify"></i>
+
+        </div>
+
+      </nav>
+    </div>
+    <div *ngIf="selectType== 'author2'">
+
+      <nav style="background-color:lightslategray" class="navbar navbar-toggleable-md navbar-light bg-faded">
+
+        <div class="form-group" data-toggle="tooltip" title="select font size!">
+          <select (change)="selectChangeHandler($event)" (click)="getTitleStyle()" class="custom-select mt-2">
+            <option selected value=11>11</option>
+            <option value=13>13</option>
+            <option value=15>15</option>
+            <option value=17>17</option>
+            <option value=19>19</option>
+            <option value=21>21</option>
+            <option value=23>23</option>
+            <option value=25>25</option>
+          </select>
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Bold family!">
+          <i *ngIf="!styleObjAuthor2.bold" (click)="getTitleStyle('boldTrue')" style="opacity: .5;" class="fas fa-bold"></i>
+          <i *ngIf="styleObjAuthor2.bold" (click)="getTitleStyle('boldFalse')" style="opacity: 1;" class="fas fa-bold"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Italic family!">
+          <i *ngIf='!styleObjAuthor2.isItalic' (click)="getTitleStyle( 'italicTrue')" style="opacity: 0.5;" class="fas fa-italic"></i>
+          <i *ngIf='styleObjAuthor2.isItalic' (click)="getTitleStyle( 'italicFalse')" style="opacity: 1;" class="fas fa-italic"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="underline family!">
+          <i *ngIf='!styleObjAuthor2.isUnderline' (click)="getTitleStyle( 'isUnderlineTrue')" style="opacity: 0.5;" class="fas fa-underline"></i>
+          <i *ngIf='styleObjAuthor2.isUnderline' (click)="getTitleStyle('isUnderlineFalse')" style="opacity: 1;" class="fas fa-underline"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Right!">
+          <i *ngIf='!styleObjAuthor2.alignRight' (click)="getTitleStyle( 'alignRightTrue')" style="opacity: 0.5;" class="fas fa-align-right"></i>
+          <i *ngIf='styleObjAuthor2.alignRight' (click)="getTitleStyle( 'alignRightFalse')" style="opacity: 1;" class="fas fa-align-right"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Center !">
+          <i *ngIf='!styleObjAuthor2.aligncenter' (click)="getTitleStyle( 'aligncenterTrue')" style="opacity: 0.5;" class="fas fa-align-center"></i>
+          <i *ngIf='styleObjAuthor2.aligncenter' (click)="getTitleStyle( 'aligncenterFalse')" style="opacity: 1;" class="fas fa-align-center"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Left!">
+          <i *ngIf='!styleObjAuthor2.alignLeft' (click)="getTitleStyle( 'alignLeftTrue')" style="opacity: .5;" class="fas fa-align-left"></i>
+          <i *ngIf='styleObjAuthor2.alignLeft' (click)="getTitleStyle( 'alignLeftFalse')" style="opacity: 1;" class="fas fa-align-left"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align judtify!">
+          <i *ngIf='!styleObjAuthor2.alignJustify' (click)="getTitleStyle( 'alignJustifyTrue')" style="opacity: 0.5;" class="fas fa-align-justify"></i>
+          <i *ngIf='styleObjAuthor2.alignJustify' (click)="getTitleStyle( 'alignJustifyFalse')" style="opacity: 1;" class="fas fa-align-justify"></i>
+
+        </div>
+
+      </nav>
+    </div>
+
+
+    <div *ngIf="selectType== 'Abstract'">
+
+      <nav style="background-color:lightslategray" class="navbar navbar-toggleable-md navbar-light bg-faded">
+
+        <div class="form-group" data-toggle="tooltip" title="select font size!">
+          <select (change)="selectChangeHandler($event)" (click)="getTitleStyle()" class="custom-select mt-2">
+            <option selected value=11>11</option>
+            <option value=13>13</option>
+            <option value=15>15</option>
+            <option value=17>17</option>
+            <option value=19>19</option>
+            <option value=21>21</option>
+            <option value=23>23</option>
+            <option value=25>25</option>
+          </select>
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Bold family!">
+          <i *ngIf="!styleObjAbstract.bold" (click)="getTitleStyle('boldTrue')" style="opacity: .5;" class="fas fa-bold"></i>
+          <i *ngIf="styleObjAbstract.bold" (click)="getTitleStyle('boldFalse')" style="opacity: 1;" class="fas fa-bold"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Italic family!">
+          <i *ngIf='!styleObjAbstract.isItalic' (click)="getTitleStyle( 'italicTrue')" style="opacity: 0.5;" class="fas fa-italic"></i>
+          <i *ngIf='styleObjAbstract.isItalic' (click)="getTitleStyle( 'italicFalse')" style="opacity: 1;" class="fas fa-italic"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="underline family!">
+          <i *ngIf='!styleObjAbstract.isUnderline' (click)="getTitleStyle( 'isUnderlineTrue')" style="opacity: 0.5;" class="fas fa-underline"></i>
+          <i *ngIf='styleObjAbstract.isUnderline' (click)="getTitleStyle('isUnderlineFalse')" style="opacity: 1;" class="fas fa-underline"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Right!">
+          <i *ngIf='!styleObjAbstract.alignRight' (click)="getTitleStyle( 'alignRightTrue')" style="opacity: 0.5;" class="fas fa-align-right"></i>
+          <i *ngIf='styleObjAbstract.alignRight' (click)="getTitleStyle( 'alignRightFalse')" style="opacity: 1;" class="fas fa-align-right"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Center !">
+          <i *ngIf='!styleObjAbstract.aligncenter' (click)="getTitleStyle( 'aligncenterTrue')" style="opacity: 0.5;" class="fas fa-align-center"></i>
+          <i *ngIf='styleObjAbstract.aligncenter' (click)="getTitleStyle( 'aligncenterFalse')" style="opacity: 1;" class="fas fa-align-center"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Left!">
+          <i *ngIf='!styleObjAbstract.alignLeft' (click)="getTitleStyle( 'alignLeftTrue')" style="opacity: .5;" class="fas fa-align-left"></i>
+          <i *ngIf='styleObjAbstract.alignLeft' (click)="getTitleStyle( 'alignLeftFalse')" style="opacity: 1;" class="fas fa-align-left"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align judtify!">
+          <i *ngIf='!styleObjAbstract.alignJustify' (click)="getTitleStyle( 'alignJustifyTrue')" style="opacity: 0.5;" class="fas fa-align-justify"></i>
+          <i *ngIf='styleObjAbstract.alignJustify' (click)="getTitleStyle( 'alignJustifyFalse')" style="opacity: 1;" class="fas fa-align-justify"></i>
+
+        </div>
+
+      </nav>
+    </div>
+    <div *ngIf="selectType== 'introduction'">
+
+      <nav style="background-color:lightslategray" class="navbar navbar-toggleable-md navbar-light bg-faded">
+
+        <div class="form-group" data-toggle="tooltip" title="select font size!">
+          <select (change)="selectChangeHandler($event)" (click)="getTitleStyle()" class="custom-select mt-2">
+            <option selected value=11>11</option>
+            <option value=13>13</option>
+            <option value=15>15</option>
+            <option value=17>17</option>
+            <option value=19>19</option>
+            <option value=21>21</option>
+            <option value=23>23</option>
+            <option value=25>25</option>
+          </select>
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Bold family!">
+          <i *ngIf="!styleObjIntroduction.bold" (click)="getTitleStyle('boldTrue')" style="opacity: .5;" class="fas fa-bold"></i>
+          <i *ngIf="styleObjIntroduction.bold" (click)="getTitleStyle('boldFalse')" style="opacity: 1;" class="fas fa-bold"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Italic family!">
+          <i *ngIf='!styleObjIntroduction.isItalic' (click)="getTitleStyle( 'italicTrue')" style="opacity: 0.5;" class="fas fa-italic"></i>
+          <i *ngIf='styleObjIntroduction.isItalic' (click)="getTitleStyle( 'italicFalse')" style="opacity: 1;" class="fas fa-italic"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="underline family!">
+          <i *ngIf='!styleObjIntroduction.isUnderline' (click)="getTitleStyle( 'isUnderlineTrue')" style="opacity: 0.5;" class="fas fa-underline"></i>
+          <i *ngIf='styleObjIntroduction.isUnderline' (click)="getTitleStyle('isUnderlineFalse')" style="opacity: 1;" class="fas fa-underline"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Right!">
+          <i *ngIf='!styleObjIntroduction.alignRight' (click)="getTitleStyle( 'alignRightTrue')" style="opacity: 0.5;" class="fas fa-align-right"></i>
+          <i *ngIf='styleObjIntroduction.alignRight' (click)="getTitleStyle( 'alignRightFalse')" style="opacity: 1;" class="fas fa-align-right"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Center !">
+          <i *ngIf='!styleObjIntroduction.aligncenter' (click)="getTitleStyle( 'aligncenterTrue')" style="opacity: 0.5;" class="fas fa-align-center"></i>
+          <i *ngIf='styleObjIntroduction.aligncenter' (click)="getTitleStyle( 'aligncenterFalse')" style="opacity: 1;" class="fas fa-align-center"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Left!">
+          <i *ngIf='!styleObjIntroduction.alignLeft' (click)="getTitleStyle( 'alignLeftTrue')" style="opacity: .5;" class="fas fa-align-left"></i>
+          <i *ngIf='styleObjIntroduction.alignLeft' (click)="getTitleStyle( 'alignLeftFalse')" style="opacity: 1;" class="fas fa-align-left"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align judtify!">
+          <i *ngIf='!styleObjIntroduction.alignJustify' (click)="getTitleStyle( 'alignJustifyTrue')" style="opacity: 0.5;" class="fas fa-align-justify"></i>
+          <i *ngIf='styleObjIntroduction.alignJustify' (click)="getTitleStyle( 'alignJustifyFalse')" style="opacity: 1;" class="fas fa-align-justify"></i>
+
+        </div>
+
+      </nav>
+    </div>
+    <div *ngIf="selectType== 'heading1'">
+
+      <nav style="background-color:lightslategray" class="navbar navbar-toggleable-md navbar-light bg-faded">
+
+        <div class="form-group" data-toggle="tooltip" title="select font size!">
+          <select (change)="selectChangeHandler($event)" (click)="getTitleStyle()" class="custom-select mt-2">
+            <option selected value=11>11</option>
+            <option value=13>13</option>
+            <option value=15>15</option>
+            <option value=17>17</option>
+            <option value=19>19</option>
+            <option value=21>21</option>
+            <option value=23>23</option>
+            <option value=25>25</option>
+          </select>
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Bold family!">
+          <i *ngIf="!styleObjHeading1.bold" (click)="getTitleStyle('boldTrue')" style="opacity: .5;" class="fas fa-bold"></i>
+          <i *ngIf="styleObjHeading1.bold" (click)="getTitleStyle('boldFalse')" style="opacity: 1;" class="fas fa-bold"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Italic family!">
+          <i *ngIf='!styleObjHeading1.isItalic' (click)="getTitleStyle( 'italicTrue')" style="opacity: 0.5;" class="fas fa-italic"></i>
+          <i *ngIf='styleObjHeading1.isItalic' (click)="getTitleStyle( 'italicFalse')" style="opacity: 1;" class="fas fa-italic"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="underline family!">
+          <i *ngIf='!styleObjHeading1.isUnderline' (click)="getTitleStyle( 'isUnderlineTrue')" style="opacity: 0.5;" class="fas fa-underline"></i>
+          <i *ngIf='styleObjHeading1.isUnderline' (click)="getTitleStyle('isUnderlineFalse')" style="opacity: 1;" class="fas fa-underline"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Right!">
+          <i *ngIf='!styleObjHeading1.alignRight' (click)="getTitleStyle( 'alignRightTrue')" style="opacity: 0.5;" class="fas fa-align-right"></i>
+          <i *ngIf='styleObjHeading1.alignRight' (click)="getTitleStyle( 'alignRightFalse')" style="opacity: 1;" class="fas fa-align-right"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Center !">
+          <i *ngIf='!styleObjHeading1.aligncenter' (click)="getTitleStyle( 'aligncenterTrue')" style="opacity: 0.5;" class="fas fa-align-center"></i>
+          <i *ngIf='styleObjHeading1.aligncenter' (click)="getTitleStyle( 'aligncenterFalse')" style="opacity: 1;" class="fas fa-align-center"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Left!">
+          <i *ngIf='!styleObjHeading1.alignLeft' (click)="getTitleStyle( 'alignLeftTrue')" style="opacity: .5;" class="fas fa-align-left"></i>
+          <i *ngIf='styleObjHeading1.alignLeft' (click)="getTitleStyle( 'alignLeftFalse')" style="opacity: 1;" class="fas fa-align-left"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align judtify!">
+          <i *ngIf='!styleObjHeading1.alignJustify' (click)="getTitleStyle( 'alignJustifyTrue')" style="opacity: 0.5;" class="fas fa-align-justify"></i>
+          <i *ngIf='styleObjHeading1.alignJustify' (click)="getTitleStyle( 'alignJustifyFalse')" style="opacity: 1;" class="fas fa-align-justify"></i>
+
+        </div>
+
+      </nav>
+    </div>
+    <div *ngIf="selectType== 'heading2'">
+
+      <nav style="background-color:lightslategray" class="navbar navbar-toggleable-md navbar-light bg-faded">
+
+        <div class="form-group" data-toggle="tooltip" title="select font size!">
+          <select (change)="selectChangeHandler($event)" (click)="getTitleStyle()" class="custom-select mt-2">
+            <option selected value=11>11</option>
+            <option value=13>13</option>
+            <option value=15>15</option>
+            <option value=17>17</option>
+            <option value=19>19</option>
+            <option value=21>21</option>
+            <option value=23>23</option>
+            <option value=25>25</option>
+          </select>
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Bold family!">
+          <i *ngIf="!styleObjHeading2.bold" (click)="getTitleStyle('boldTrue')" style="opacity: .5;" class="fas fa-bold"></i>
+          <i *ngIf="styleObjHeading2.bold" (click)="getTitleStyle('boldFalse')" style="opacity: 1;" class="fas fa-bold"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Italic family!">
+          <i *ngIf='!styleObjHeading2.isItalic' (click)="getTitleStyle( 'italicTrue')" style="opacity: 0.5;" class="fas fa-italic"></i>
+          <i *ngIf='styleObjHeading2.isItalic' (click)="getTitleStyle( 'italicFalse')" style="opacity: 1;" class="fas fa-italic"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="underline family!">
+          <i *ngIf='!styleObjHeading2.isUnderline' (click)="getTitleStyle( 'isUnderlineTrue')" style="opacity: 0.5;" class="fas fa-underline"></i>
+          <i *ngIf='styleObjHeading2.isUnderline' (click)="getTitleStyle('isUnderlineFalse')" style="opacity: 1;" class="fas fa-underline"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Right!">
+          <i *ngIf='!styleObjHeading2.alignRight' (click)="getTitleStyle( 'alignRightTrue')" style="opacity: 0.5;" class="fas fa-align-right"></i>
+          <i *ngIf='styleObjHeading2.alignRight' (click)="getTitleStyle( 'alignRightFalse')" style="opacity: 1;" class="fas fa-align-right"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Center !">
+          <i *ngIf='!styleObjHeading2.aligncenter' (click)="getTitleStyle( 'aligncenterTrue')" style="opacity: 0.5;" class="fas fa-align-center"></i>
+          <i *ngIf='styleObjHeading2.aligncenter' (click)="getTitleStyle( 'aligncenterFalse')" style="opacity: 1;" class="fas fa-align-center"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Left!">
+          <i *ngIf='!styleObjHeading2.alignLeft' (click)="getTitleStyle( 'alignLeftTrue')" style="opacity: .5;" class="fas fa-align-left"></i>
+          <i *ngIf='styleObjHeading2.alignLeft' (click)="getTitleStyle( 'alignLeftFalse')" style="opacity: 1;" class="fas fa-align-left"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align judtify!">
+          <i *ngIf='!styleObjHeading2.alignJustify' (click)="getTitleStyle( 'alignJustifyTrue')" style="opacity: 0.5;" class="fas fa-align-justify"></i>
+          <i *ngIf='styleObjHeading2.alignJustify' (click)="getTitleStyle( 'alignJustifyFalse')" style="opacity: 1;" class="fas fa-align-justify"></i>
+
+        </div>
+
+      </nav>
+    </div>
+    <div *ngIf="selectType== 'heading3'">
+
+      <nav style="background-color:lightslategray" class="navbar navbar-toggleable-md navbar-light bg-faded">
+
+        <div class="form-group" data-toggle="tooltip" title="select font size!">
+          <select (change)="selectChangeHandler($event)" (click)="getTitleStyle()" class="custom-select mt-2">
+            <option selected value=11>11</option>
+            <option value=13>13</option>
+            <option value=15>15</option>
+            <option value=17>17</option>
+            <option value=19>19</option>
+            <option value=21>21</option>
+            <option value=23>23</option>
+            <option value=25>25</option>
+          </select>
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Bold family!">
+          <i *ngIf="!styleObjHeading3.bold" (click)="getTitleStyle('boldTrue')" style="opacity: .5;" class="fas fa-bold"></i>
+          <i *ngIf="styleObjHeading3.bold" (click)="getTitleStyle('boldFalse')" style="opacity: 1;" class="fas fa-bold"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Italic family!">
+          <i *ngIf='!styleObjHeading3.isItalic' (click)="getTitleStyle( 'italicTrue')" style="opacity: 0.5;" class="fas fa-italic"></i>
+          <i *ngIf='styleObjHeading3.isItalic' (click)="getTitleStyle( 'italicFalse')" style="opacity: 1;" class="fas fa-italic"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="underline family!">
+          <i *ngIf='!styleObjHeading3.isUnderline' (click)="getTitleStyle( 'isUnderlineTrue')" style="opacity: 0.5;" class="fas fa-underline"></i>
+          <i *ngIf='styleObjHeading3.isUnderline' (click)="getTitleStyle('isUnderlineFalse')" style="opacity: 1;" class="fas fa-underline"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Right!">
+          <i *ngIf='!styleObjHeading3.alignRight' (click)="getTitleStyle( 'alignRightTrue')" style="opacity: 0.5;" class="fas fa-align-right"></i>
+          <i *ngIf='styleObjHeading3.alignRight' (click)="getTitleStyle( 'alignRightFalse')" style="opacity: 1;" class="fas fa-align-right"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Center !">
+          <i *ngIf='!styleObjHeading3.aligncenter' (click)="getTitleStyle( 'aligncenterTrue')" style="opacity: 0.5;" class="fas fa-align-center"></i>
+          <i *ngIf='styleObjHeading3.aligncenter' (click)="getTitleStyle( 'aligncenterFalse')" style="opacity: 1;" class="fas fa-align-center"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Left!">
+          <i *ngIf='!styleObjHeading3.alignLeft' (click)="getTitleStyle( 'alignLeftTrue')" style="opacity: .5;" class="fas fa-align-left"></i>
+          <i *ngIf='styleObjHeading3.alignLeft' (click)="getTitleStyle( 'alignLeftFalse')" style="opacity: 1;" class="fas fa-align-left"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align judtify!">
+          <i *ngIf='!styleObjHeading3.alignJustify' (click)="getTitleStyle( 'alignJustifyTrue')" style="opacity: 0.5;" class="fas fa-align-justify"></i>
+          <i *ngIf='styleObjHeading3.alignJustify' (click)="getTitleStyle( 'alignJustifyFalse')" style="opacity: 1;" class="fas fa-align-justify"></i>
+
+        </div>
+
+      </nav>
+    </div>
+    <div *ngIf="selectType== 'heading4'">
+
+      <nav style="background-color:lightslategray" class="navbar navbar-toggleable-md navbar-light bg-faded">
+
+        <div class="form-group" data-toggle="tooltip" title="select font size!">
+          <select (change)="selectChangeHandler($event)" (click)="getTitleStyle()" class="custom-select mt-2">
+            <option selected value=11>11</option>
+            <option value=13>13</option>
+            <option value=15>15</option>
+            <option value=17>17</option>
+            <option value=19>19</option>
+            <option value=21>21</option>
+            <option value=23>23</option>
+            <option value=25>25</option>
+          </select>
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Bold family!">
+          <i *ngIf="!styleObjHeading4.bold" (click)="getTitleStyle('boldTrue')" style="opacity: .5;" class="fas fa-bold"></i>
+          <i *ngIf="styleObjHeading4.bold" (click)="getTitleStyle('boldFalse')" style="opacity: 1;" class="fas fa-bold"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Italic family!">
+          <i *ngIf='!styleObjHeading4.isItalic' (click)="getTitleStyle( 'italicTrue')" style="opacity: 0.5;" class="fas fa-italic"></i>
+          <i *ngIf='styleObjHeading4.isItalic' (click)="getTitleStyle( 'italicFalse')" style="opacity: 1;" class="fas fa-italic"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="underline family!">
+          <i *ngIf='!styleObjHeading4.isUnderline' (click)="getTitleStyle( 'isUnderlineTrue')" style="opacity: 0.5;" class="fas fa-underline"></i>
+          <i *ngIf='styleObjHeading4.isUnderline' (click)="getTitleStyle('isUnderlineFalse')" style="opacity: 1;" class="fas fa-underline"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Right!">
+          <i *ngIf='!styleObjHeading4.alignRight' (click)="getTitleStyle( 'alignRightTrue')" style="opacity: 0.5;" class="fas fa-align-right"></i>
+          <i *ngIf='styleObjHeading4.alignRight' (click)="getTitleStyle( 'alignRightFalse')" style="opacity: 1;" class="fas fa-align-right"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Center !">
+          <i *ngIf='!styleObjHeading4.aligncenter' (click)="getTitleStyle( 'aligncenterTrue')" style="opacity: 0.5;" class="fas fa-align-center"></i>
+          <i *ngIf='styleObjHeading4.aligncenter' (click)="getTitleStyle( 'aligncenterFalse')" style="opacity: 1;" class="fas fa-align-center"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Left!">
+          <i *ngIf='!styleObjHeading4.alignLeft' (click)="getTitleStyle( 'alignLeftTrue')" style="opacity: .5;" class="fas fa-align-left"></i>
+          <i *ngIf='styleObjHeading4.alignLeft' (click)="getTitleStyle( 'alignLeftFalse')" style="opacity: 1;" class="fas fa-align-left"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align judtify!">
+          <i *ngIf='!styleObjHeading4.alignJustify' (click)="getTitleStyle( 'alignJustifyTrue')" style="opacity: 0.5;" class="fas fa-align-justify"></i>
+          <i *ngIf='styleObjHeading4.alignJustify' (click)="getTitleStyle( 'alignJustifyFalse')" style="opacity: 1;" class="fas fa-align-justify"></i>
+
+        </div>
+
+      </nav>
+    </div>
+    <div *ngIf="selectType== 'heading5'">
+
+      <nav style="background-color:lightslategray" class="navbar navbar-toggleable-md navbar-light bg-faded">
+
+        <div class="form-group" data-toggle="tooltip" title="select font size!">
+          <select (change)="selectChangeHandler($event)" (click)="getTitleStyle()" class="custom-select mt-2">
+            <option selected value=11>11</option>
+            <option value=13>13</option>
+            <option value=15>15</option>
+            <option value=17>17</option>
+            <option value=19>19</option>
+            <option value=21>21</option>
+            <option value=23>23</option>
+            <option value=25>25</option>
+          </select>
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Bold family!">
+          <i *ngIf="!styleObjHeading5.bold" (click)="getTitleStyle('boldTrue')" style="opacity: .5;" class="fas fa-bold"></i>
+          <i *ngIf="styleObjHeading5.bold" (click)="getTitleStyle('boldFalse')" style="opacity: 1;" class="fas fa-bold"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Italic family!">
+          <i *ngIf='!styleObjHeading5.isItalic' (click)="getTitleStyle( 'italicTrue')" style="opacity: 0.5;" class="fas fa-italic"></i>
+          <i *ngIf='styleObjHeading5.isItalic' (click)="getTitleStyle( 'italicFalse')" style="opacity: 1;" class="fas fa-italic"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="underline family!">
+          <i *ngIf='!styleObjHeading5.isUnderline' (click)="getTitleStyle( 'isUnderlineTrue')" style="opacity: 0.5;" class="fas fa-underline"></i>
+          <i *ngIf='styleObjHeading5.isUnderline' (click)="getTitleStyle('isUnderlineFalse')" style="opacity: 1;" class="fas fa-underline"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Right!">
+          <i *ngIf='!styleObjHeading5.alignRight' (click)="getTitleStyle( 'alignRightTrue')" style="opacity: 0.5;" class="fas fa-align-right"></i>
+          <i *ngIf='styleObjHeading5.alignRight' (click)="getTitleStyle( 'alignRightFalse')" style="opacity: 1;" class="fas fa-align-right"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Center !">
+          <i *ngIf='!styleObjHeading5.aligncenter' (click)="getTitleStyle( 'aligncenterTrue')" style="opacity: 0.5;" class="fas fa-align-center"></i>
+          <i *ngIf='styleObjHeading5.aligncenter' (click)="getTitleStyle( 'aligncenterFalse')" style="opacity: 1;" class="fas fa-align-center"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Left!">
+          <i *ngIf='!styleObjHeading5.alignLeft' (click)="getTitleStyle( 'alignLeftTrue')" style="opacity: .5;" class="fas fa-align-left"></i>
+          <i *ngIf='styleObjHeading5.alignLeft' (click)="getTitleStyle( 'alignLeftFalse')" style="opacity: 1;" class="fas fa-align-left"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align judtify!">
+          <i *ngIf='!styleObjHeading5.alignJustify' (click)="getTitleStyle( 'alignJustifyTrue')" style="opacity: 0.5;" class="fas fa-align-justify"></i>
+          <i *ngIf='styleObjHeading5.alignJustify' (click)="getTitleStyle( 'alignJustifyFalse')" style="opacity: 1;" class="fas fa-align-justify"></i>
+
+        </div>
+
+      </nav>
+    </div>
+
+
+    <div *ngIf="selectType== 'Aknowledge'">
+
+      <nav style="background-color:lightslategray" class="navbar navbar-toggleable-md navbar-light bg-faded">
+
+        <div class="form-group" data-toggle="tooltip" title="select font size!">
+          <select (change)="selectChangeHandler($event)" (click)="getTitleStyle()" class="custom-select mt-2">
+              <option selected value=11>11</option>
+              <option value=13>13</option>
+              <option value=15>15</option>
+              <option value=17>17</option>
+              <option value=19>19</option>
+              <option value=21>21</option>
+              <option value=23>23</option>
+              <option value=25>25</option>
+            </select>
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Bold family!">
+          <i *ngIf="! styleObjAknowledge.bold" (click)="getTitleStyle('boldTrue')" style="opacity: .5;" class="fas fa-bold"></i>
+          <i *ngIf=" styleObjAknowledge.bold" (click)="getTitleStyle('boldFalse')" style="opacity: 1;" class="fas fa-bold"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Italic family!">
+          <i *ngIf='! styleObjAknowledge.isItalic' (click)="getTitleStyle( 'italicTrue')" style="opacity: 0.5;" class="fas fa-italic"></i>
+          <i *ngIf=' styleObjAknowledge.isItalic' (click)="getTitleStyle( 'italicFalse')" style="opacity: 1;" class="fas fa-italic"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="underline family!">
+          <i *ngIf='! styleObjAknowledge.isUnderline' (click)="getTitleStyle( 'isUnderlineTrue')" style="opacity: 0.5;" class="fas fa-underline"></i>
+          <i *ngIf=' styleObjAknowledge.isUnderline' (click)="getTitleStyle('isUnderlineFalse')" style="opacity: 1;" class="fas fa-underline"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Right!">
+          <i *ngIf='! styleObjAknowledge.alignRight' (click)="getTitleStyle( 'alignRightTrue')" style="opacity: 0.5;" class="fas fa-align-right"></i>
+          <i *ngIf=' styleObjAknowledge.alignRight' (click)="getTitleStyle( 'alignRightFalse')" style="opacity: 1;" class="fas fa-align-right"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Center !">
+          <i *ngIf='! styleObjAknowledge.aligncenter' (click)="getTitleStyle( 'aligncenterTrue')" style="opacity: 0.5;" class="fas fa-align-center"></i>
+          <i *ngIf=' styleObjAknowledge.aligncenter' (click)="getTitleStyle( 'aligncenterFalse')" style="opacity: 1;" class="fas fa-align-center"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Left!">
+          <i *ngIf='! styleObjAknowledge.alignLeft' (click)="getTitleStyle( 'alignLeftTrue')" style="opacity: .5;" class="fas fa-align-left"></i>
+          <i *ngIf=' styleObjAknowledge.alignLeft' (click)="getTitleStyle( 'alignLeftFalse')" style="opacity: 1;" class="fas fa-align-left"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align judtify!">
+          <i *ngIf='! styleObjAknowledge.alignJustify' (click)="getTitleStyle( 'alignJustifyTrue')" style="opacity: 0.5;" class="fas fa-align-justify"></i>
+          <i *ngIf=' styleObjAknowledge.alignJustify' (click)="getTitleStyle( 'alignJustifyFalse')" style="opacity: 1;" class="fas fa-align-justify"></i>
+
+        </div>
+
+      </nav>
+    </div>
+
+
+
+    <div *ngIf="selectType== 'Refrences'">
+
+      <nav style="background-color:lightslategray" class="navbar navbar-toggleable-md navbar-light bg-faded">
+
+        <div class="form-group" data-toggle="tooltip" title="select font size!">
+          <select (change)="selectChangeHandler($event)" (click)="getTitleStyle()" class="custom-select mt-2">
+            <option selected value=11>11</option>
+            <option value=13>13</option>
+            <option value=15>15</option>
+            <option value=17>17</option>
+            <option value=19>19</option>
+            <option value=21>21</option>
+            <option value=23>23</option>
+            <option value=25>25</option>
+          </select>
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Bold family!">
+          <i *ngIf="!styleObjRefrence.bold" (click)="getTitleStyle('boldTrue')" style="opacity: .5;" class="fas fa-bold"></i>
+          <i *ngIf="styleObjRefrence.bold" (click)="getTitleStyle('boldFalse')" style="opacity: 1;" class="fas fa-bold"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="Italic family!">
+          <i *ngIf='!styleObjRefrence.isItalic' (click)="getTitleStyle( 'italicTrue')" style="opacity: 0.5;" class="fas fa-italic"></i>
+          <i *ngIf='styleObjRefrence.isItalic' (click)="getTitleStyle( 'italicFalse')" style="opacity: 1;" class="fas fa-italic"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="underline family!">
+          <i *ngIf='!styleObjRefrence.isUnderline' (click)="getTitleStyle( 'isUnderlineTrue')" style="opacity: 0.5;" class="fas fa-underline"></i>
+          <i *ngIf='styleObjRefrence.isUnderline' (click)="getTitleStyle('isUnderlineFalse')" style="opacity: 1;" class="fas fa-underline"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Right!">
+          <i *ngIf='!styleObjRefrence.alignRight' (click)="getTitleStyle( 'alignRightTrue')" style="opacity: 0.5;" class="fas fa-align-right"></i>
+          <i *ngIf='styleObjRefrence.alignRight' (click)="getTitleStyle( 'alignRightFalse')" style="opacity: 1;" class="fas fa-align-right"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Center !">
+          <i *ngIf='!styleObjRefrence.aligncenter' (click)="getTitleStyle( 'aligncenterTrue')" style="opacity: 0.5;" class="fas fa-align-center"></i>
+          <i *ngIf='styleObjRefrence.aligncenter' (click)="getTitleStyle( 'aligncenterFalse')" style="opacity: 1;" class="fas fa-align-center"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align Left!">
+          <i *ngIf='!styleObjRefrence.alignLeft' (click)="getTitleStyle( 'alignLeftTrue')" style="opacity: .5;" class="fas fa-align-left"></i>
+          <i *ngIf='styleObjRefrence.alignLeft' (click)="getTitleStyle( 'alignLeftFalse')" style="opacity: 1;" class="fas fa-align-left"></i>
+
+        </div>
+        <div class="align-items" data-toggle="tooltip" title="align judtify!">
+          <i *ngIf='!styleObjRefrence.alignJustify' (click)="getTitleStyle( 'alignJustifyTrue')" style="opacity: 0.5;" class="fas fa-align-justify"></i>
+          <i *ngIf='styleObjRefrence.alignJustify' (click)="getTitleStyle( 'alignJustifyFalse')" style="opacity: 1;" class="fas fa-align-justify"></i>
+
+        </div>
+
+      </nav>
+    </div>
+
+
+
+    <div class="centerThat" data-toggle="tooltip" title="enter title here!">
+      <div class="form-group">
+        <textarea autofocus [ngClass]="selectType == 'title'?'active-input': '' " (click)="selecttype('title')" class="form-control"
+          placeholder="Paper title" rows="2" id="comment" formControlName='title'></textarea>
+      </div>
+    </div>
+
+    <div class="centerThat" data-toggle="tooltip" title="enter subtitle Here!">
+      <div class="form-group">
+        <textarea [ngClass]="selectType == 'subTitle'?'active-input': '' " (click)="selecttype('subTitle')" class="form-control"
+          placeholder="Paper subTitle" rows="2" id="comment" formControlName='subtitle'></textarea>
+      </div>
+    </div>
+
+
+
+
+
+
+    <div class="authorName">
+
+      <div style="width: 40%" data-toggle="tooltip" title="Enter Author name Here!">
+        <div class="form-group">
+          <textarea [ngClass]="selectType == 'author1'?'active-input': '' " (click)="selecttype('author1')" class="form-control" placeholder="Author Name/1st Affiliation "
+            rows="5" id="comment" formControlName='authorName1'></textarea>
+        </div>
+      </div>
+      <div style="width: 40%" data-toggle="tooltip" title="Enter Author name Here!">
+        <div class="form-group">
+          <textarea [ngClass]="selectType == 'author2'?'active-input': '' " (click)="selecttype('author2')" class="form-control" placeholder="Author Name/2nd Affiliation "
+            rows="5" id="comment" formControlName='authorName2'></textarea>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <div class="authorName">
+
+
+      <div data-toggle="tooltip" title="enter Abstarct hare !">
+        <div class="form-group">
+          <textarea [ngClass]="selectType == 'Abstract'?'active-input': '' " (click)="selecttype('Abstract')" class="form-control"
+            placeholder="Abstract" rows="4" id="comment" formControlName='abstract'></textarea>
+        </div>
+      </div>
+      <div data-toggle="tooltip" title="enter introduction here ">
+        <div class="form-group">
+          <textarea [ngClass]="selectType == ''?'active-input': '' " (click)="selecttype('')" class="form-control" placeholder="key words"
+            rows="4" id="comment" formControlName='keyWords'></textarea>
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+    <div class="authorName">
+
+      <div style="width: 40%" data-toggle="tooltip" title="introduction">
+        <div class="form-group">
+          <textarea [ngClass]="selectType == 'introduction'?'active-input': '' " (click)="selecttype('introduction')" class="form-control"
+            placeholder="enter Introduction " rows="5" id="comment" formControlName='introduction'></textarea>
+        </div>
+      </div>
+      <div style="width: 40%" data-toggle="tooltip" title="!">
+        <div class="form-group">
+          <textarea [ngClass]="selectType == 'heading2'?'active-input': '' " (click)="selecttype('heading2')" class="form-control"
+            placeholder="heading 2" rows="5" id="comment" formControlName='heading2'></textarea>
+        </div>
+      </div>
+
+    </div>
+    <div class="authorName">
+
+      <div style="width: 40%" data-toggle="tooltip" title="heading 1">
+        <div class="form-group">
+          <textarea [ngClass]="selectType == 'heading1'?'active-input': '' " (click)="selecttype('heading1')" class="form-control"
+            placeholder="heading 1 " rows="5" id="comment" formControlName='heading1'></textarea>
+        </div>
+      </div>
+      <div style="width: 40%" data-toggle="tooltip" title="!">
+        <div class="form-group">
+          <textarea [ngClass]="selectType == 'heading3'?'active-input': '' " (click)="selecttype('heading3')" class="form-control"
+            placeholder="heading 3" rows="5" id="comment" formControlName='heading3'></textarea>
+        </div>
+      </div>
+
+    </div>
+    <div class="authorName">
+
+      <div style="width: 40%" data-toggle="tooltip" title="heading 4">
+        <div class="form-group">
+          <textarea [ngClass]="selectType == 'heading4'?'active-input': '' " (click)="selecttype('heading4')" class="form-control"
+            placeholder="heading 4 " rows="5" id="comment" formControlName='heading4'></textarea>
+        </div>
+      </div>
+      <div style="width: 40%" data-toggle="tooltip" title="!">
+        <div class="form-group">
+          <textarea [ngClass]="selectType == 'heading5'?'active-input': '' " (click)="selecttype('heading5')" class="form-control"
+            placeholder="heading 5" rows="10" id="comment" formControlName='heading5'></textarea>
+        </div>
+      </div>
+
+    </div>
+    <div class="authorName">
+
+      <div style="width: 40%" data-toggle="tooltip" title="introduction">
+        <div class="form-group">
+          <textarea [ngClass]="selectType == 'Aknowledge'?'active-input': '' " (click)="selecttype('Aknowledge')" class="form-control"
+            placeholder="Aknowledge " rows="5" id="comment" formControlName='Aknowledge'></textarea>
+        </div>
+      </div>
+      <div style="width: 40%" data-toggle="tooltip" title="!">
+        <div class="form-group">
+          <textarea [ngClass]="selectType == 'Refrences'?'active-input': '' " (click)="selecttype('Refrences')" class="form-control"
+            placeholder="Refrences" rows="5" id="comment" formControlName='Refrences'></textarea>
+        </div>
+      </div>
+
+    </div>
+    <button (click)="save()" type="button" class="btn btn-primary" style="width:30%">Enter</button>
+
+  </form>
+</div>
