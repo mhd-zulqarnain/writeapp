@@ -1,47 +1,63 @@
-
 /* You can add global styles to this file, and also import other style files */
 
-.divPara{
+.divPara {
   border: #000 dotted 1px;
-  margin:12px 90px;
+  margin: 12px 90px;
   padding: 4px;
 }
-.divAuth{
-  border: #000 dotted 1px;
-}
-.btn-cross-style{
+
+.btn-cross-style {
   position: absolute;
   top: -15%;
   right: -20px;
 
+}
 
-}
-.divTitle{
-  height:100px;
-  margin:0 90px;
+.divTitle {
+  border: #000 dotted 1px;
+  margin: 12px 90px 0px 90px;
   padding: 4px;
 }
-.main-heading{
-  margin:0 90px;
+
+.main-heading {
+  margin: 0 90px;
   padding: 4px;
 }
-.sub-heading  {
-  margin:0 90px;
+
+.sub-heading {
+  margin: 0 90px;
   padding: 4px;
   background: cornflowerblue;
 
 }
-.pos-relative{
+
+.pos-relative {
   margin-top: 3px;
   position: relative;
 }
-.pos-absolute{
+
+.pos-absolute {
   position: absolute;
   left: 170px;
   top: 3px;
   font-size: 23px;
 }
-.pos-absolute-add{
-  left: 210px!important;
+
+.pos-absolute-add {
+  left: 210px !important;
 }
 
+/*Author css section */
+.divMainAuthor {
+  border: #000 dotted 1px;
+  margin: 12px 90px;
+}
+
+.divAuthor {
+  border: #000 dotted 1px;
+  height: 150px;
+  margin: 0 auto;
+  margin-left: 5px;
+  margin-top: 10px;
+  margin-bottom: 12px;
+}

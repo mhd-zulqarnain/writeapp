@@ -1,7 +1,5 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {forEach} from '@angular/router/src/utils/collection';
-import {isUndefined} from 'util';
 import {isDefined} from '@angular/compiler/src/util';
 
 declare let jquery: any;
@@ -16,82 +14,52 @@ declare let $: any;
 
 
 export class FormDocsV2Component implements OnInit {
+
   public docsForm: FormGroup;
-  public vm = this;
   public count = 16;
   public forDocskeys = [];
-  private final = [];
-  title = 'app';
   box = false;
   btn = true;
   dlt = false;
-  disableAuthor = false;
-  private htmlStr: String;
   private HEADING_CONST: String = 'heading';
   private SUB_HEADING_CONST: String = 'subHeading';
   private CLASS_SUB_HEADING_CONST: String = 'main-heading';
   private CLASS_HEADING_CONST: String = 'sub-heading';
+  private TPYE_AUTHOR_CONST: String = 'author';
+  private TPYE_PARA_GRAPH_CONST: String = 'paragraph';
+
+
   public data = [
     {
       id: 'd0',
-      cid: 'd9',
+      cid: 'd1',
       heading: '',
       content: '',
+      type: this.TPYE_PARA_GRAPH_CONST,
       class: 'main-heading',
-      sub1: [
-        {
-          id: 'd1',
-          cid: 'd10',
-          heading: '',
-          content: ' ',
-          class: 'sub-heading',
-          sub1: [
-            {
-              id: 'd2',
-              cid: 'd11',
-              heading: '',
-              content: '',
-              class: 'sub-heading',
-            },
-            {
-              id: 'd4',
-              cid: 'd12',
-              heading: '',
-              content: '',
-              class: 'sub-heading',
-
-            },
-          ]
-        },
-        {
-          id: 'd5',
-          cid: 'd13',
-          heading: '',
-          content: '',
-          class: 'sub-heading',
-          sub1: [
-            {
-              id: 'd6',
-              cid: 'd14',
-              heading: '',
-              content: '',
-              class: 'sub-heading'
-            },
-            {
-              id: 'd7',
-              cid: 'd15',
-              heading: '',
-              content: '',
-              class: 'sub-heading'
-            },
-          ]
-        }
-      ]
-
+      sub1: []
     }
   ];
+  public author = [
+    {
+      aid: 'd2',
+      content: '',
+      type: this.TPYE_AUTHOR_CONST,
+    },
+    {
+      aid: 'd3',
+      content: '',
+      type: this.TPYE_AUTHOR_CONST,
+    }
+  ];
+  public title = {
+    aid: 'd5',
+    content: '',
+    type: "title",
+  };
+
   constructor(private fb: FormBuilder) {
-    for (let i = 0; i < 45; i++) {
+    for (let i = 0; i < 85; i++) {
       let key = 'd' + i;
       this.forDocskeys[key] = ' ';
     }
@@ -106,11 +74,6 @@ export class FormDocsV2Component implements OnInit {
 
   public removePara(index, indexp2, indexp3) {
 
-    /* for (let i = 0, ii = (this.arr.length); i < ii; i++) {
-       /!*if (this.arr[i].id === iid) {
-         this.arr.splice(i, 1);
-       }*!/
-     }*/
 
     if (isDefined(index)) {
       this.data[indexp3].sub1[indexp2].sub1.splice(index, 1);
@@ -118,6 +81,9 @@ export class FormDocsV2Component implements OnInit {
 
     } else if (isDefined(indexp2)) {
       this.data[indexp3].sub1.splice(indexp2, 1);
+    } else if (isDefined(indexp3)) {
+      if (this.data.length > 1)
+        this.data.splice(indexp3, 1);
     }
   }
 
@@ -132,6 +98,7 @@ export class FormDocsV2Component implements OnInit {
       cid: keyNames[this.count + 1],
       heading: ' ',
       content: '',
+      type: this.TPYE_PARA_GRAPH_CONST,
       sub1: [],
       class: 'sub-heading',
     };
@@ -201,8 +168,8 @@ export class FormDocsV2Component implements OnInit {
   }
 
   public getHeading(str) {
-   /* let headingCount = this.data[indexp3].sub1[indexp2].sub1[index].heading;
-    newObject.heading = this.getHeading(headingCount);*/
+    /* let headingCount = this.data[indexp3].sub1[indexp2].sub1[index].heading;
+     newObject.heading = this.getHeading(headingCount);*/
     let main = str.substring(0, str.length - 1);
     let res = str.substring(str.length - 1);
     let add = parseInt(res, 10) + 1;
@@ -219,4 +186,27 @@ export class FormDocsV2Component implements OnInit {
     return bool;
   }
 
+  /*Author section---------*/
+  public removeAuthor(index) {
+    if (isDefined(index)) {
+      console.log('the author index ' + index);
+      if (this.author.length > 1)
+        this.author.splice(index, 1);
+
+    }
+  }
+
+  public addAuthor(index) {
+    let keyNames = Object.keys(this.forDocskeys);
+    this.count = this.count + 1;
+
+    let newAuthor = {
+      aid: keyNames[this.count],
+      content: '',
+      type: this.TPYE_AUTHOR_CONST,
+    };
+    if (isDefined(index)) {
+      this.author.push(newAuthor);
+    }
+  }
 }
