@@ -18,73 +18,9 @@ declare let $: any;
 export class FormDocsV2Component implements OnInit {
   public docsForm: FormGroup;
   public vm = this;
-  data = [
-    {
-      id: 'd0',
-      cid: 'd9',
-      heading: 'heading 1',
-      content: 'content',
-      class: 'main-heading',
-      sub1: [
-        {
-          id: 'd1',
-          cid: 'd10',
-          heading: '1.1',
-          content: 'sub heading content',
-          class: 'sub-heading',
-          sub1: [
-            {
-              id: 'd2',
-              cid: 'd11',
-              heading: '1.1.1',
-              content: 'sub heading content',
-              class: 'sub-heading',
-            },
-            {
-              id: 'd4',
-              cid: 'd12',
-              heading: '1.1.2',
-              content: 'sub heading content',
-              class: 'sub-heading',
-
-            },
-          ]
-        },
-        {
-          id: 'd5',
-          cid: 'd13',
-          heading: '1.2',
-          content: 'sub heading content',
-          class: 'sub-heading',
-          sub1: [
-            {
-              id: 'd6',
-              cid: 'd14',
-              heading: '1.2.1',
-              content: 'sub heading content',
-            },
-            {
-              id: 'd7',
-              cid: 'd15',
-              heading: '1.2.2',
-              content: 'sub heading content',
-            },
-          ]
-        }
-      ]
-
-    }
-  ];
-
-  public arr = [
-    {id: 0, text: 'Sentence 1', key: 'd1', type: 'author'},
-
-  ];
-
   public count = 16;
   public forDocskeys = [];
   private final = [];
-
   title = 'app';
   box = false;
   btn = true;
@@ -93,7 +29,67 @@ export class FormDocsV2Component implements OnInit {
   private htmlStr: String;
   private HEADING_CONST: String = 'heading';
   private SUB_HEADING_CONST: String = 'subHeading';
+  private CLASS_SUB_HEADING_CONST: String = 'main-heading';
+  private CLASS_HEADING_CONST: String = 'sub-heading';
+  public data = [
+    {
+      id: 'd0',
+      cid: 'd9',
+      heading: '',
+      content: '',
+      class: 'main-heading',
+      sub1: [
+        {
+          id: 'd1',
+          cid: 'd10',
+          heading: '',
+          content: ' ',
+          class: 'sub-heading',
+          sub1: [
+            {
+              id: 'd2',
+              cid: 'd11',
+              heading: '',
+              content: '',
+              class: 'sub-heading',
+            },
+            {
+              id: 'd4',
+              cid: 'd12',
+              heading: '',
+              content: '',
+              class: 'sub-heading',
 
+            },
+          ]
+        },
+        {
+          id: 'd5',
+          cid: 'd13',
+          heading: '',
+          content: '',
+          class: 'sub-heading',
+          sub1: [
+            {
+              id: 'd6',
+              cid: 'd14',
+              heading: '',
+              content: '',
+              class: 'sub-heading'
+            },
+            {
+              id: 'd7',
+              cid: 'd15',
+              heading: '',
+              content: '',
+              class: 'sub-heading'
+            },
+          ]
+        }
+      ]
+
+    }
+  ];
   constructor(private fb: FormBuilder) {
     for (let i = 0; i < 45; i++) {
       let key = 'd' + i;
@@ -107,12 +103,6 @@ export class FormDocsV2Component implements OnInit {
   ngOnInit() {
   }
 
-  public trackByFn(index, item) {
-    console.log('the item ', item.id);
-    console.log('the index ', index);
-    return item.id;
-
-  }
 
   public removePara(index, indexp2, indexp3) {
 
@@ -140,7 +130,7 @@ export class FormDocsV2Component implements OnInit {
     let newObject = {
       id: keyNames[this.count],
       cid: keyNames[this.count + 1],
-      heading: '1.1 ',
+      heading: ' ',
       content: '',
       sub1: [],
       class: 'sub-heading',
@@ -148,8 +138,7 @@ export class FormDocsV2Component implements OnInit {
     let mIndex = parseInt(index, 0);
 
     if (isDefined(index)) {
-      let headingCount = this.data[indexp3].sub1[indexp2].sub1[index].heading;
-      newObject.heading = this.getHeading(headingCount);
+
       let mArr = [];
       mArr = this.data[indexp3].sub1[indexp2].sub1;
       mArr.splice((index + 1), 0, newObject);
@@ -158,8 +147,7 @@ export class FormDocsV2Component implements OnInit {
 
     } else if (isDefined(indexp2)) {
       if (type == this.HEADING_CONST) {
-        let headingCount = this.data[indexp3].sub1[indexp2].heading;
-        newObject.heading = this.getHeading(headingCount);
+
         let index = indexp2 + 1;
         let mArr = [];
 
@@ -169,36 +157,30 @@ export class FormDocsV2Component implements OnInit {
         console.log('heading');
 
       } else if (type == this.SUB_HEADING_CONST) {
-        let headingCount = this.data[indexp3].sub1[indexp2].heading;
-        newObject.heading = this.getHeading(headingCount);
+
         let index = indexp2 + 1;
         let mArr = [];
         mArr = this.data[indexp3].sub1[indexp2].sub1;
         mArr.push(newObject);
-        console.log('subheading');
 
       }
     } else if (isDefined(indexp3)) {
       if (type == this.HEADING_CONST) {
-        /* let headingCount = this.data[indexp3].sub1[indexp2].heading;
-         newObject.heading = this.getHeading(headingCount);*/
-        let index = indexp3 + 1;
-        let mArr = [];
-        newObject.class = 'main-heading';
-        mArr = this.data[indexp3].sub1;
-        mArr.push(newObject);
-        console.log('heading');
 
 
-      } else if (type == this.SUB_HEADING_CONST) {
-        // let headingCount = this.data[indexp3].sub1[indexp2].heading;
-        //newObject.heading = this.getHeading(headingCount);
         let index = indexp3 + 1;
         newObject.class = 'main-heading';
         let mArr = [];
         mArr = this.data;
         mArr.push(newObject);
-        console.log('subheading');
+
+
+      } else if (type == this.SUB_HEADING_CONST) {
+        let index = indexp3 + 1;
+        let mArr = [];
+        newObject.class = 'main-heading';
+        mArr = this.data[indexp3].sub1;
+        mArr.push(newObject);
 
       }
     }
@@ -219,25 +201,14 @@ export class FormDocsV2Component implements OnInit {
   }
 
   public getHeading(str) {
-
+   /* let headingCount = this.data[indexp3].sub1[indexp2].sub1[index].heading;
+    newObject.heading = this.getHeading(headingCount);*/
     let main = str.substring(0, str.length - 1);
     let res = str.substring(str.length - 1);
     let add = parseInt(res, 10) + 1;
     let conc = main.concat(add);
 
     return conc;
-  }
-
-  public submitForm() {
-    //console.log(this.docsForm.get("d0").value)
-
-    for (let i = 0, ii = (this.arr.length); i < ii; i++) {
-      this.final.push({type: this.arr[i], content: this.docsForm.get(this.arr[i].key).value});
-    }
-    for (let i = 0, ii = (this.final.length); i < ii; i++) {
-      console.log('The content ' + this.final[i].content + ' and the type  is ' + this.final[i].type.type);
-    }
-
   }
 
   public isZeroLength(item) {
