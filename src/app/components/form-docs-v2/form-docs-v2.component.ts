@@ -100,7 +100,7 @@ export class FormDocsV2Component implements OnInit {
       this.forDocskeys[key] = ' ';
     }
     this.docsForm = this.fb.group(
-   this.forDocskeys
+      this.forDocskeys
     );
   }
 
@@ -132,6 +132,7 @@ export class FormDocsV2Component implements OnInit {
   }
 
   public addOption(index, indexp2, indexp3, type) {
+    console.log('new array');
 
     let keyNames = Object.keys(this.forDocskeys);
     this.count = this.count + 1;
@@ -139,39 +140,69 @@ export class FormDocsV2Component implements OnInit {
     let newObject = {
       id: keyNames[this.count],
       cid: keyNames[this.count + 1],
-      heading: 'new ',
+      heading: '1.1 ',
       content: '',
-      sub1: []
+      sub1: [],
+      class: 'sub-heading',
     };
-    let mIndex = parseInt(index , 0)
+    let mIndex = parseInt(index, 0);
 
     if (isDefined(index)) {
-
-
       let headingCount = this.data[indexp3].sub1[indexp2].sub1[index].heading;
       newObject.heading = this.getHeading(headingCount);
-      console.log(newObject);
+      let mArr = [];
+      mArr = this.data[indexp3].sub1[indexp2].sub1;
+      mArr.splice((index + 1), 0, newObject);
 
-      this.data[indexp3].sub1[indexp2].sub1.splice(index+1, 1, newObject);
+      console.log(mArr);
+
     } else if (isDefined(indexp2)) {
-
       if (type == this.HEADING_CONST) {
         let headingCount = this.data[indexp3].sub1[indexp2].heading;
         newObject.heading = this.getHeading(headingCount);
         let index = indexp2 + 1;
-        this.data[indexp3].sub1.splice(index, 1, newObject);
-        console.log('new object added');
-        console.log(this.data);
+        let mArr = [];
+
+        mArr = this.data[indexp3].sub1;
+        mArr.splice(index, 0, newObject);
+
+        console.log('heading');
 
       } else if (type == this.SUB_HEADING_CONST) {
         let headingCount = this.data[indexp3].sub1[indexp2].heading;
         newObject.heading = this.getHeading(headingCount);
         let index = indexp2 + 1;
+        let mArr = [];
+        mArr = this.data[indexp3].sub1[indexp2].sub1;
+        mArr.push(newObject);
+        console.log('subheading');
 
-        this.data[indexp3].sub1[indexp2].sub1.push(newObject);
-        console.log(this.data[indexp3].sub1[indexp2]);
+      }
+    } else if (isDefined(indexp3)) {
+      if (type == this.HEADING_CONST) {
+        /* let headingCount = this.data[indexp3].sub1[indexp2].heading;
+         newObject.heading = this.getHeading(headingCount);*/
+        let index = indexp3 + 1;
+        let mArr = [];
+        newObject.class = 'main-heading';
+        mArr = this.data[indexp3].sub1;
+        mArr.push(newObject);
+        console.log('heading');
+
+
+      } else if (type == this.SUB_HEADING_CONST) {
+        // let headingCount = this.data[indexp3].sub1[indexp2].heading;
+        //newObject.heading = this.getHeading(headingCount);
+        let index = indexp3 + 1;
+        newObject.class = 'main-heading';
+        let mArr = [];
+        mArr = this.data;
+        mArr.push(newObject);
+        console.log('subheading');
+
       }
     }
+
   }
 
   public showDiv() {
@@ -211,8 +242,8 @@ export class FormDocsV2Component implements OnInit {
 
   public isZeroLength(item) {
     let bool = true;
-    if ( item > 0) {
-      bool = false
+    if (item > 0) {
+      bool = false;
     }
     return bool;
   }
