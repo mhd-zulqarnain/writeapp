@@ -1,6 +1,8 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {isDefined} from '@angular/compiler/src/util';
+import { DocsService } from './../../services/docs.service';
+import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 
 declare let jquery: any;
 declare let $: any;
@@ -29,12 +31,64 @@ export class FormDocsV2Component implements OnInit {
   private TPYE_PARA_GRAPH_CONST: String = 'paragraph';
 
 
+  /*--------Style-----------*/
+
+  private styleTitle = {
+    'fontSize': 20,
+    'bold': false,
+    'isItalic': false,
+    'isUnderline': true,
+    'aligncenter': false,
+    'alignRight': false,
+    'alignLeft': false,
+    'alignJustify': false,
+    'type': ''
+
+  };
+  private styleHeading = {
+    'fontSize': 15,
+    'bold': true,
+    'isItalic': false,
+    'isUnderline': true,
+    'aligncenter': false,
+    'alignRight': false,
+    'alignLeft': false,
+    'alignJustify': false,
+    'type': ''
+
+  };
+  private styleContent = {
+    'fontSize': 15,
+    'bold': false,
+    'isItalic': false,
+    'isUnderline': true,
+    'aligncenter': false,
+    'alignRight': false,
+    'alignLeft': false,
+    'alignJustify': false,
+    'type': ''
+
+  };
+  private styleAuther = {
+    'fontSize': 15,
+    'bold': false,
+    'isItalic': false,
+    'isUnderline': true,
+    'aligncenter': true,
+    'alignRight': false,
+    'alignLeft': false,
+    'alignJustify': false,
+    'type': ''
+
+  };
+  /*---------------------------------------*/
   public data = [
     {
       id: 'd0',
       cid: 'd1',
-      heading: '',
-      content: '',
+      heading: 'heading',
+      content: 'content',
+      style: [{obj: this.styleHeading}, {obj: this.styleContent}],
       type: this.TPYE_PARA_GRAPH_CONST,
       class: 'main-heading',
       sub1: []
@@ -44,6 +98,7 @@ export class FormDocsV2Component implements OnInit {
     {
       aid: 'd2',
       content: '',
+      style: [{obj: this.styleAuther}],
       type: this.TPYE_AUTHOR_CONST,
     },
     {
@@ -53,12 +108,14 @@ export class FormDocsV2Component implements OnInit {
     }
   ];
   public title = {
-    aid: 'd5',
+    tid: 'd5',
     content: '',
-    type: "title",
+    style: [{obj: this.styleTitle}],
+    type: 'title',
   };
+  public finalObject = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, public docsService: DocsService, private http: HttpClient) {
     for (let i = 0; i < 85; i++) {
       let key = 'd' + i;
       this.forDocskeys[key] = ' ';
@@ -88,7 +145,6 @@ export class FormDocsV2Component implements OnInit {
   }
 
   public addOption(index, indexp2, indexp3, type) {
-    console.log('new array');
 
     let keyNames = Object.keys(this.forDocskeys);
     this.count = this.count + 1;
@@ -96,8 +152,9 @@ export class FormDocsV2Component implements OnInit {
     let newObject = {
       id: keyNames[this.count],
       cid: keyNames[this.count + 1],
-      heading: ' ',
-      content: '',
+      heading: 'heading',
+      content: 'content',
+      style: [{obj: this.styleHeading}, {obj: this.styleContent}],
       type: this.TPYE_PARA_GRAPH_CONST,
       sub1: [],
       class: 'sub-heading',
@@ -130,11 +187,12 @@ export class FormDocsV2Component implements OnInit {
         mArr = this.data[indexp3].sub1[indexp2].sub1;
         mArr.push(newObject);
 
+        console.log("the sub heading")
+        console.log(newObject)
+
       }
     } else if (isDefined(indexp3)) {
       if (type == this.HEADING_CONST) {
-
-
         let index = indexp3 + 1;
         newObject.class = 'main-heading';
         let mArr = [];
@@ -147,25 +205,18 @@ export class FormDocsV2Component implements OnInit {
         let mArr = [];
         newObject.class = 'main-heading';
         mArr = this.data[indexp3].sub1;
+
         mArr.push(newObject);
+
+
 
       }
     }
 
   }
 
-  public showDiv() {
-    this.box = true;
-    this.dlt = true;
-    this.btn = false;
-    return 'Hello string';
-  }
 
-  public hideDiv() {
-    this.box = false;
-    this.btn = true;
-    this.dlt = false;
-  }
+
 
   public getHeading(str) {
     /* let headingCount = this.data[indexp3].sub1[indexp2].sub1[index].heading;
@@ -208,5 +259,39 @@ export class FormDocsV2Component implements OnInit {
     if (isDefined(index)) {
       this.author.push(newAuthor);
     }
+  }
+
+
+  public formSubmit() {
+
+    this.finalObject.push(this.title)
+    this.finalObject.push(this.author)
+    this.finalObject.push(this.data)
+console.log(
+"the final object"
+);
+    console.log(
+  this.finalObject
+)
+    this.docsService.generateDoc(this.finalObject).take(1).subscribe(res => {
+      console.log('res', res)
+      /*if (datUrl) {
+        let contentType = datUrl.split(';')[0];
+
+        let byteCharacters = atob(datUrl);
+
+        let byteNumbers = new Array(byteCharacters.length);
+
+        for (var i = 0; i < byteCharacters.length; i++)
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+
+        let byteArray = new Uint8Array(byteNumbers);
+
+        let blob = new Blob([byteArray], { type: contentType });
+        console.log('blob', blob)
+        saveAs(blob, 'queryMaanJaa.docx');
+
+      }*/
+    })
   }
 }

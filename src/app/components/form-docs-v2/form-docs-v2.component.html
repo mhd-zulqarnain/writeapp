@@ -5,7 +5,8 @@
 
     <div class="row">
       <div class="col-md-8 divTitle">
-        <textarea class="form-control"  [(ngModel)]="auth.content" placeholder="Title of paper" rows="3"></textarea>
+        <textarea class="form-control"  [(ngModel)]= "title.content"
+                  [formControlName]=title.tid placeholder="Title of paper" rows="3"></textarea>
       </div>
     </div>
 
@@ -39,6 +40,9 @@
 
           <h6>Main heading</h6>
 
+          <h3>{{item.heading}}</h3>
+          <h5>{{item.content}}</h5>
+
           <i class="fa fa-times-circle btn-cross-style close pos-absolute" (click)="removePara(null,null, firstPr)"
              style="margin: 0 auto "></i>
           <i class="fa fa-plus-circle  pos-absolute pos-absolute-add" id="mainLabel"
@@ -68,6 +72,7 @@
 
             <h6>Subheading </h6>
 
+
             <i class="fa fa-times-circle btn-cross-style close pos-absolute"
                (click)="removePara(null,secondPr, firstPr)" style="margin: 0 auto "></i>
             <i class="fa fa-plus-circle  pos-absolute pos-absolute-add" id="subLabel"
@@ -86,14 +91,17 @@
             </i>
             <input type="text" class="form-control" [(ngModel)]="subitem.heading" placeholder=" Enter heading"
                    [formControlName]=subitem.id><br>
-            <textarea class="form-control" [formControlName]=subitem.id rows="3"
-                      [placeholder]=subitem.heading></textarea>
+            <textarea class="form-control" [formControlName]=subitem.id rows="3" [(ngModel)]="subitem.content"
+                     ></textarea>
 
 
             <div *ngIf="item.sub1">
               <div *ngFor="let nestedsubitem of subitem.sub1 ; index as thirdPr" class="{{item.class}} pos-relative">
 
                 <h6>Subheading </h6>
+                <h3>{{nestedsubitem.heading}}</h3>
+                <h3>{{nestedsubitem.content}}</h3>
+
                 <i class="fa fa-times-circle btn-cross-style close pos-absolute"
                    (click)="removePara(thirdPr,secondPr, firstPr)" style="margin: 0 auto "></i>
                 <i class="fa fa-plus-circle  pos-absolute pos-absolute-add"
@@ -102,8 +110,8 @@
 
                 <input type="text" class="form-control" [(ngModel)]="nestedsubitem.heading" placeholder=" Enter heading"
                        [formControlName]=nestedsubitem.id><br>
-                <textarea class="form-control" [formControlName]=nestedsubitem.id rows="3"
-                          [placeholder]=nestedsubitem.heading></textarea>
+                <textarea class="form-control" [formControlName]=nestedsubitem.id rows="3" [(ngModel)]="nestedsubitem.content"
+                          ></textarea>
 
 
               </div>
@@ -116,7 +124,7 @@
     </div>
 
   </form>
-  <button class="btn-default"> Generate</button>
+  <button class="btn-default"  type="submit" (click)="formSubmit()"> Generate</button>
 </div>
 
 
