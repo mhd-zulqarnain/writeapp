@@ -1,8 +1,8 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {isDefined} from '@angular/compiler/src/util';
-import { DocsService } from './../../services/docs.service';
-import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
+import {DocsService} from './../../services/docs.service';
+import {HttpParams, HttpClient, HttpHeaders} from '@angular/common/http';
 
 declare let jquery: any;
 declare let $: any;
@@ -20,9 +20,7 @@ export class FormDocsV2Component implements OnInit {
   public docsForm: FormGroup;
   public count = 16;
   public forDocskeys = [];
-  box = false;
-  btn = true;
-  dlt = false;
+
   private HEADING_CONST: String = 'heading';
   private SUB_HEADING_CONST: String = 'subHeading';
   private CLASS_SUB_HEADING_CONST: String = 'main-heading';
@@ -57,7 +55,7 @@ export class FormDocsV2Component implements OnInit {
     'type': ''
 
   };
-  private styleContent = {
+  private styledescription = {
     'fontSize': 15,
     'bold': false,
     'isItalic': false,
@@ -87,12 +85,21 @@ export class FormDocsV2Component implements OnInit {
       id: 'd0',
       cid: 'd1',
       heading: 'heading',
-      content: 'content',
-      style: [{obj: this.styleHeading}, {obj: this.styleContent}],
+      description: 'description',
+      style: [{obj: this.styleHeading}, {obj: this.styledescription}],
       type: this.TPYE_PARA_GRAPH_CONST,
       class: 'main-heading',
       sub1: []
-    }
+    },  {
+      id: 'd11',
+      cid: 'd12',
+      heading: 'heading',
+      description: 'description',
+      style: [{obj: this.styleHeading}, {obj: this.styledescription}],
+      type: this.TPYE_PARA_GRAPH_CONST,
+      class: 'main-heading',
+      sub1: []
+    },
   ];
   public author = [
     {
@@ -153,8 +160,10 @@ export class FormDocsV2Component implements OnInit {
       id: keyNames[this.count],
       cid: keyNames[this.count + 1],
       heading: 'heading',
-      content: 'content',
-      style: [{obj: this.styleHeading}, {obj: this.styleContent}],
+      description: 'description',
+      style: [
+        {obj: this.styleHeading},
+        {obj: this.styledescription}],
       type: this.TPYE_PARA_GRAPH_CONST,
       sub1: [],
       class: 'sub-heading',
@@ -185,11 +194,18 @@ export class FormDocsV2Component implements OnInit {
         let index = indexp2 + 1;
         let mArr = [];
         mArr = this.data[indexp3].sub1[indexp2].sub1;
-        mArr.push(newObject);
-
-        console.log("the sub heading")
-        console.log(newObject)
-
+        mArr.push( {
+          id: keyNames[this.count],
+          cid: keyNames[this.count + 1],
+          heading: 'heading',
+          description: 'description',
+          style: [
+            {obj: this.styleHeading},
+            {obj: this.styledescription}],
+          type: this.TPYE_PARA_GRAPH_CONST,
+          sub1: [],
+          class: 'sub-heading',
+        });
       }
     } else if (isDefined(indexp3)) {
       if (type == this.HEADING_CONST) {
@@ -198,24 +214,32 @@ export class FormDocsV2Component implements OnInit {
         let mArr = [];
         mArr = this.data;
         mArr.push(newObject);
-
+        this.data = mArr;
 
       } else if (type == this.SUB_HEADING_CONST) {
         let index = indexp3 + 1;
         let mArr = [];
         newObject.class = 'main-heading';
         mArr = this.data[indexp3].sub1;
-
-        mArr.push(newObject);
-
-
+        mArr.push({
+          id: keyNames[this.count],
+          cid: keyNames[this.count + 1],
+          heading: 'heading',
+          description: 'description',
+          style: [
+            {obj: this.styleHeading},
+            {obj: this.styledescription}],
+          type: this.TPYE_PARA_GRAPH_CONST,
+          sub1: [],
+          class: 'sub-heading',
+        });
+        console.log('the sub heading');
+        console.log(newObject);
 
       }
     }
 
   }
-
-
 
 
   public getHeading(str) {
@@ -228,7 +252,9 @@ export class FormDocsV2Component implements OnInit {
 
     return conc;
   }
-
+  public indexTracker(index: number, value: any) {
+    return index;
+  }
   public isZeroLength(item) {
     let bool = true;
     if (item > 0) {
@@ -264,17 +290,17 @@ export class FormDocsV2Component implements OnInit {
 
   public formSubmit() {
 
-    this.finalObject.push(this.title)
-    this.finalObject.push(this.author)
-    this.finalObject.push(this.data)
-console.log(
-"the final object"
-);
+    this.finalObject.push(this.title);
+    this.finalObject.push(this.author);
+    this.finalObject.push(this.data);
     console.log(
-  this.finalObject
-)
+      'the final object'
+    );
+    console.log(
+      this.finalObject
+    );
     this.docsService.generateDoc(this.finalObject).take(1).subscribe(res => {
-      console.log('res', res)
+      console.log('res', res);
       /*if (datUrl) {
         let contentType = datUrl.split(';')[0];
 
@@ -292,6 +318,6 @@ console.log(
         saveAs(blob, 'queryMaanJaa.docx');
 
       }*/
-    })
+    });
   }
 }
