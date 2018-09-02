@@ -1,10 +1,59 @@
 <div class="col-md-10">
 
 
+  <form novalidate [formGroup]="docsForm" class="form-container">
 
-  <div class="col-md-6" *ngFor="let item of arr ;  " style="background: grey; height: 250px;width: 250px ">
+    <div class="col-md-12  pos-relative" *ngFor="let item of data ; trackBy:indexTracker ">
 
-    <button (click)="addNew()">Add</button>
+      <h3>the value</h3>
+      <h5>{{getIndex(item.id)}}</h5>
 
-  </div>
+      <li class="fa fa-plus-circle  pos-absolute pos-absolute-add" style="padding:10px"
+          (click)="addOption(null,null, item.id,'heading')"></li>
+
+      <div style="background: grey; width: 250px ">
+        <h3>{{item.des }}</h3><br>
+        <input type="text" class="form-control" [(ngModel)]="item.des" placeholder=" Enter heading"
+               [formControlName]=item.id>
+
+      </div>
+
+
+      <div *ngIf="item.sub1" class="row">
+
+        <div class="col-md-6  pos-relative" *ngFor="let subitem of item.sub1 ;trackBy:indexinnernestedTracker ">
+
+          <li class="fa fa-plus-circle  pos-absolute pos-absolute-add" style="padding:10px"
+              (click)="addOption(null, subitem.id,  item.id,'heading')"></li>
+
+          <div style="background: #804547; width: 250px ">
+            <h3>{{subitem.des}}</h3><br>
+
+            <input type="text" class="form-control" [(ngModel)]="subitem.des" placeholder=" Enter heading"
+                   [formControlName]=subitem.id>
+          </div>
+
+          <div *ngIf="subitem.sub1" class="row">
+
+            <div class="col-md-6  pos-relative" *ngFor="let nestsubitem of subitem.sub1 ;trackBy:indexnestedTracker  ">
+              <li class="fa fa-plus-circle  pos-absolute pos-absolute-add" style="padding:10px"
+                  (click)="addOption(nestsubitem.id, subitem.id,  item.id,'heading')"></li>
+
+              <div style="background: #807e68; width: 250px ">
+                <h3>{{nestsubitem.des}}</h3><br>
+
+                <input type="text" class="form-control" [(ngModel)]="nestsubitem.des" placeholder=" Enter heading"
+                       [formControlName]=nestsubitem.id>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </form>
 </div>
+

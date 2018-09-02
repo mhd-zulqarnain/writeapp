@@ -303,24 +303,24 @@ export class FormDocsComponent implements OnInit {
       datUrl = res;
       if (datUrl) {
         let contentType = datUrl.split(';')[0];
-  
+
         let byteCharacters = atob(datUrl);
-  
+
         let byteNumbers = new Array(byteCharacters.length);
-  
+
         for (var i = 0; i < byteCharacters.length; i++)
           byteNumbers[i] = byteCharacters.charCodeAt(i);
-  
         let byteArray = new Uint8Array(byteNumbers);
-  
+
         let blob = new Blob([byteArray], { type: contentType });
         console.log('blob', blob)
+
         saveAs(blob, 'queryMaanJaa.docx');
-  
+
       }
     })
 
-  
+
 
 
 
