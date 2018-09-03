@@ -19,20 +19,7 @@ export class TestFormComponent implements OnInit {
       des: 'd4',
       cid: 'd3',
       sub1: [
-        /*{
-          id: 'd5',
-          des: 'd6',
-          cid: 'd5',
-          sub1: [
-            {
-              id: 'd7',
-              des: 'd8',
-              cid: 'd7',
-              sub1: []
-            }
-          ]
-        }
-*/
+
       ]
     }
 
@@ -111,16 +98,22 @@ export class TestFormComponent implements OnInit {
           item.sub1.forEach((nesteditem, index2) => {
 
             if (nesteditem.id == arry2Id) {
-                 nesteditem.sub1.forEach((dnesteditem, index1) => {
+              nesteditem.sub1.forEach((dnesteditem, index1) => {
 
-                  if (dnesteditem.id = arry1Id) {
-                    let index = index1 + 1;
-                    let mArr = [];
-                    mArr = this.data[index3].sub1[index2].sub1[index1].sub1;
-                    mArr.push(newObject);
-                    console.log("here i m")
-                  }
-                });
+                if (dnesteditem.id = arry1Id) {
+
+                  let index = index1 + 1;
+
+                   this.data[index3].sub1[index2].sub1.splice(index, 0, newObject);
+                  //
+                  // mArr = this.data[index3].sub1[index2].sub1[index1].sub1;
+                 // mArr.push(newObject);
+
+
+                  console.log('here ');
+                  console.log(this.data);
+                }
+              });
 
 
             }
