@@ -4,6 +4,7 @@ import {DocsService} from '../../services/docs.service';
 import {HttpClient} from '@angular/common/http';
 import {isDefined} from '@angular/compiler/src/util';
 import {forEach} from '@angular/router/src/utils/collection';
+import {el} from '@angular/platform-browser/testing/src/browser_util';
 
 @Component({
   selector: 'app-test-form',
@@ -17,26 +18,38 @@ export class TestFormComponent implements OnInit {
     {
       id: 'd3',
       des: 'd4',
-      cid: 'd3',
+      cid: 'd4',
       sub1: [
-
+        {
+          id: 'd6',
+          des: 'd6',
+          cid: 'd7',
+          sub1: [
+            {
+              id: 'd8',
+              des: 'd9',
+              cid: 'd9',
+              sub1: []
+            }
+          ]
+        }
       ]
     }
 
   ];
-  public forDocskeys = [];
+  public forDocskeys = {};
   public count = 16;
   public docsForm: FormGroup;
 
-
   constructor(private fb: FormBuilder, public docsService: DocsService, private http: HttpClient) {
     for (let i = 0; i < 85; i++) {
-      let key = 'd' + i;
-      this.forDocskeys[key] = ' ';
+      this.forDocskeys['d' + i] = '';
     }
     this.docsForm = this.fb.group(
       this.forDocskeys
     );
+    console.log(this.docsForm);
+
   }
 
   ngOnInit() {
@@ -84,7 +97,7 @@ export class TestFormComponent implements OnInit {
     let newObject = {
       id: keyNames[this.count],
       cid: keyNames[this.count + 1],
-      des: keyNames[this.count + 1],
+      des: 'desc' + keyNames[this.count],
       sub1: []
     };
     //let mIndex = parseInt(index, 0);
@@ -94,28 +107,31 @@ export class TestFormComponent implements OnInit {
 
       this.data.forEach((item, index3) => {
 
-        if (item.id = arry3Id) {
+        if (item.id == arry3Id) {
           item.sub1.forEach((nesteditem, index2) => {
 
             if (nesteditem.id == arry2Id) {
               nesteditem.sub1.forEach((dnesteditem, index1) => {
 
-                if (dnesteditem.id = arry1Id) {
+                if (dnesteditem.id == arry1Id && index1 == type ) {
 
                   let index = index1 + 1;
-
-                   this.data[index3].sub1[index2].sub1.splice(index, 0, newObject);
+                  this.data[index3].sub1[index2].sub1.splice(index, 0, newObject);
+                  /* if (JSON.stringify(dnesteditem) == nesteditem.sub1[index1]) {*/
+                  //this.data[index3].sub1[index2].sub1.splice(index, 0, newObject);
+                  //let mArr1 = this.data[index3].sub1[index2].sub1;
+                  /*} else {
+                    this.data[index3].sub1[index2].sub1.splice(index1, 0, newObject);
+                  }*/
                   //
                   // mArr = this.data[index3].sub1[index2].sub1[index1].sub1;
-                 // mArr.push(newObject);
+                  // mArr.push(newObject);
 
 
-                  console.log('here ');
-                  console.log(this.data);
+                  //  console.log('here ');
+
                 }
               });
-
-
             }
           });
         }

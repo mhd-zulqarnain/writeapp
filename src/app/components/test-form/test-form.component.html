@@ -35,15 +35,20 @@
 
           <div *ngIf="subitem.sub1" class="row">
 
-            <div class="col-md-6  pos-relative" *ngFor="let nestsubitem of subitem.sub1 ;trackBy:indexnestedTracker  ">
+            <div class="col-md-6  pos-relative" *ngFor="let nestsubitem of subitem.sub1 ;trackBy:indexnestedTracker ;index as last  ">
               <li class="fa fa-plus-circle  pos-absolute pos-absolute-add" style="padding:10px"
-                  (click)="addOption(nestsubitem.id, subitem.id,  item.id,'heading')"></li>
+                  (click)="addOption(nestsubitem.id, subitem.id,  item.id,last)"></li>
 
               <div style="background: #807e68; width: 250px ">
+                <h3>id {{nestsubitem.id}}</h3><br>
+
                 <h3>{{nestsubitem.des}}</h3><br>
 
-                <input type="text" class="form-control" [(ngModel)]="nestsubitem.des" placeholder=" Enter heading"
+                <input type="text" class="form-control" [(ngModel)]="nestsubitem.id" placeholder=" Enter heading"
                        [formControlName]=nestsubitem.id>
+
+                <input type="text" class="form-control" [(ngModel)]="nestsubitem.des" placeholder=" Enter heading"
+                       [formControlName]=nestsubitem.cid>
               </div>
 
             </div>
