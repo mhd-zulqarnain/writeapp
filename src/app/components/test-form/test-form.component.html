@@ -14,7 +14,7 @@
       <div style="background: grey; width: 250px ">
         <h3>{{item.des }}</h3><br>
         <input type="text" class="form-control" [(ngModel)]="item.des" placeholder=" Enter heading"
-               [formControlName]=item.id>
+               [formControlName]=item.hid>
 
       </div>
 
@@ -30,7 +30,7 @@
             <h3>{{subitem.des}}</h3><br>
 
             <input type="text" class="form-control" [(ngModel)]="subitem.des" placeholder=" Enter heading"
-                   [formControlName]=subitem.id>
+                   [formControlName]=subitem.hid>
           </div>
 
           <div *ngIf="subitem.sub1" class="row">
@@ -45,7 +45,7 @@
                 <h3>{{nestsubitem.des}}</h3><br>
 
                 <input type="text" class="form-control" [(ngModel)]="nestsubitem.id" placeholder=" Enter heading"
-                       [formControlName]=nestsubitem.id>
+                       [formControlName]=nestsubitem.hid>
 
                 <input type="text" class="form-control" [(ngModel)]="nestsubitem.des" placeholder=" Enter heading"
                        [formControlName]=nestsubitem.cid>

@@ -16,18 +16,21 @@ export class TestFormComponent implements OnInit {
 
   public data = [
     {
-      id: 'd3',
-      des: 'd4',
+      id: 1,
+      hid: 'd3',
+      des: 'des',
       cid: 'd4',
       sub1: [
         {
-          id: 'd6',
-          des: 'd6',
+          id: 2,
+          hid: 'd6',
+          des: 'dds',
           cid: 'd7',
           sub1: [
             {
-              id: 'd8',
-              des: 'd9',
+              id: 3,
+              hid: 'd8',
+              des: 'dex',
               cid: 'd9',
               sub1: []
             }
@@ -48,7 +51,6 @@ export class TestFormComponent implements OnInit {
     this.docsForm = this.fb.group(
       this.forDocskeys
     );
-    console.log(this.docsForm);
 
   }
 
@@ -95,9 +97,10 @@ export class TestFormComponent implements OnInit {
     let keyNames = Object.keys(this.forDocskeys);
     this.count = this.count + 1;
     let newObject = {
-      id: keyNames[this.count],
+      id: this.count,
+      hid: keyNames[this.count],
       cid: keyNames[this.count + 1],
-      des: 'desc' + keyNames[this.count],
+      des: 'my desc' + keyNames[this.count],
       sub1: []
     };
     //let mIndex = parseInt(index, 0);
@@ -113,10 +116,18 @@ export class TestFormComponent implements OnInit {
             if (nesteditem.id == arry2Id) {
               nesteditem.sub1.forEach((dnesteditem, index1) => {
 
-                if (dnesteditem.id == arry1Id && index1 == type ) {
+                if (dnesteditem.id == arry1Id && index1 == type) {
 
                   let index = index1 + 1;
-                  this.data[index3].sub1[index2].sub1.splice(index, 0, newObject);
+
+                  let arr = this.data[index3].sub1[index2].sub1;
+                  let fs = arr.slice(0, index1);
+                  let rm = arr.slice(index1);
+                  fs.push(newObject);
+
+                  let fin = fs.concat(rm);
+                  this.data[index3].sub1[index2].sub1 = fin;
+
                   /* if (JSON.stringify(dnesteditem) == nesteditem.sub1[index1]) {*/
                   //this.data[index3].sub1[index2].sub1.splice(index, 0, newObject);
                   //let mArr1 = this.data[index3].sub1[index2].sub1;
@@ -129,6 +140,8 @@ export class TestFormComponent implements OnInit {
 
 
                   //  console.log('here ');
+                  console.log(this.docsForm);
+
 
                 }
               });
