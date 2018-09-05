@@ -3,6 +3,7 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angul
 import {isDefined} from '@angular/compiler/src/util';
 import {DocsService} from './../../services/docs.service';
 import {HttpParams, HttpClient, HttpHeaders} from '@angular/common/http';
+import { saveAs } from 'file-saver/FileSaver';
 
 declare let jquery: any;
 declare let $: any;
@@ -34,7 +35,7 @@ export class FormDocsV2Component implements OnInit, AfterContentChecked {
   /*--------Style-----------*/
 
   private styleTitle = {
-    'fontSize': 20,
+    'fontSize': 25,
     'bold': false,
     'isItalic': false,
     'isUnderline': true,
@@ -61,7 +62,7 @@ export class FormDocsV2Component implements OnInit, AfterContentChecked {
     'fontSize': 15,
     'bold': false,
     'isItalic': false,
-    'isUnderline': true,
+    'isUnderline': false,
     'aligncenter': false,
     'alignRight': false,
     'alignLeft': false,
@@ -70,10 +71,10 @@ export class FormDocsV2Component implements OnInit, AfterContentChecked {
 
   };
   private styleAuther = {
-    'fontSize': 15,
+    'fontSize': 20,
     'bold': false,
-    'isItalic': false,
-    'isUnderline': true,
+    'isItalic': true,
+    'isUnderline': false,
     'aligncenter': true,
     'alignRight': false,
     'alignLeft': false,
@@ -105,6 +106,7 @@ export class FormDocsV2Component implements OnInit, AfterContentChecked {
       aid: 'd3',
       content: '',
       type: this.TPYE_AUTHOR_CONST,
+      style: [{obj: this.styleAuther}]
     }
   ];
   public title = {
@@ -113,7 +115,7 @@ export class FormDocsV2Component implements OnInit, AfterContentChecked {
     style: [{obj: this.styleTitle}],
     type: 'title',
   };
-  public finalObject = [];
+  public finalObject = {};
 
   constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef, public docsService: DocsService, private http: HttpClient) {
     for (let i = 0; i < 85; i++) {
@@ -262,6 +264,7 @@ export class FormDocsV2Component implements OnInit, AfterContentChecked {
     let newAuthor = {
       aid: keyNames[this.count],
       content: '',
+      style: [{obj: this.styleAuther}],
       type: this.TPYE_AUTHOR_CONST,
     };
     if (isDefined(index)) {
@@ -272,18 +275,26 @@ export class FormDocsV2Component implements OnInit, AfterContentChecked {
 
   public formSubmit() {
 
-    this.finalObject.push(this.title);
-    this.finalObject.push(this.author);
-    this.finalObject.push(this.data);
+    this.finalObject = {
+      title : this.title,
+      author: this.author,
+      paragraph: this.data
+    };
+    /*this.finalObject.push(this.author);
+    this.finalObject.push(this.data);*/
     console.log(
       'the final object'
     );
     console.log(
       JSON.stringify(this.finalObject));
 
+
+      var datUrl
+    var datUrl
     this.docsService.generateDoc(this.finalObject).take(1).subscribe(res => {
-      console.log('res', res);
-      /*if (datUrl) {
+      console.log('res', res)
+      datUrl = res;
+      if (datUrl) {
         let contentType = datUrl.split(';')[0];
 
         let byteCharacters = atob(datUrl);
@@ -299,8 +310,9 @@ export class FormDocsV2Component implements OnInit, AfterContentChecked {
         console.log('blob', blob)
         saveAs(blob, 'queryMaanJaa.docx');
 
-      }*/
-    });
+      }
+    })
+    this.finalObject = {}
   }
 
 
