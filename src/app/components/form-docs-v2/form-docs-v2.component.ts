@@ -201,7 +201,7 @@ export class FormDocsV2Component implements OnInit {
         newObject.class = 'main-heading';
         let mArr = [];
         mArr = this.data;
-        mArr.push(newObject);
+        mArr.splice(index, 0, newObject);
 
 
       } else if (type == this.SUB_HEADING_CONST) {
