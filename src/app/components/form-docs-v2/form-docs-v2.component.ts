@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {Component, ElementRef, ChangeDetectorRef, OnInit, AfterViewInit, AfterContentChecked} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {isDefined} from '@angular/compiler/src/util';
 import {DocsService} from './../../services/docs.service';
@@ -15,7 +15,7 @@ declare let $: any;
 })
 
 
-export class FormDocsV2Component implements OnInit {
+export class FormDocsV2Component implements OnInit, AfterContentChecked {
 
   public docsForm: FormGroup;
   public count = 16;
@@ -115,7 +115,7 @@ export class FormDocsV2Component implements OnInit {
   };
   public finalObject = [];
 
-  constructor(private fb: FormBuilder, public docsService: DocsService, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef, public docsService: DocsService, private http: HttpClient) {
     for (let i = 0; i < 85; i++) {
       let key = 'd' + i;
       this.forDocskeys[key] = ' ';
@@ -124,6 +124,13 @@ export class FormDocsV2Component implements OnInit {
       this.forDocskeys
     );
   }
+
+
+  ngAfterContentChecked(): void {
+    this.cdr.detectChanges();
+
+  }
+
 
   trackById(index: number, value: any) {
     return value.id;
@@ -295,4 +302,6 @@ export class FormDocsV2Component implements OnInit {
       }*/
     });
   }
+
+
 }
