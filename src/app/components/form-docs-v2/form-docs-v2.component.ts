@@ -133,7 +133,7 @@ export class FormDocsV2Component implements OnInit, AfterContentChecked {
 
 
   trackById(index: number, value: any) {
-    return value.id;
+    return value.cid;
   }
 
   ngOnInit() {
@@ -279,8 +279,8 @@ export class FormDocsV2Component implements OnInit, AfterContentChecked {
       'the final object'
     );
     console.log(
-      this.finalObject
-    );
+      JSON.stringify(this.finalObject));
+
     this.docsService.generateDoc(this.finalObject).take(1).subscribe(res => {
       console.log('res', res);
       /*if (datUrl) {

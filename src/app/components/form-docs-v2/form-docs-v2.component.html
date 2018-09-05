@@ -58,10 +58,12 @@
             </a>
           </i>
 
+          <textarea class="form-control" [(ngModel)]="item.content" placeholder=" Enter content"
+                    [formControlName]=item.cid></textarea>
+
           <input type="text" class="form-control" [(ngModel)]="item.heading" placeholder=" Enter heading"
                  [formControlName]=item.id><br>
-          <textarea class="form-control" [(ngModel)]="item.content" placeholder=" Enter content"
-                    [formControlName]=item.id></textarea>
+
 
           <!--<div ngClass="{'hide': !arrayLength(subitem),'show': arrayLength(subitem)}"></div>-->
 
