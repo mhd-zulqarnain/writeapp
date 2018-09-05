@@ -1,8 +1,8 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {isDefined} from '@angular/compiler/src/util';
-import { DocsService } from './../../services/docs.service';
-import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
+import {DocsService} from './../../services/docs.service';
+import {HttpParams, HttpClient, HttpHeaders} from '@angular/common/http';
 
 declare let jquery: any;
 declare let $: any;
@@ -125,6 +125,10 @@ export class FormDocsV2Component implements OnInit {
     );
   }
 
+  trackById(index: number, value: any) {
+    return value.id;
+  }
+
   ngOnInit() {
   }
 
@@ -187,8 +191,8 @@ export class FormDocsV2Component implements OnInit {
         mArr = this.data[indexp3].sub1[indexp2].sub1;
         mArr.push(newObject);
 
-        console.log("the sub heading")
-        console.log(newObject)
+        console.log('the sub heading');
+        console.log(newObject);
 
       }
     } else if (isDefined(indexp3)) {
@@ -209,13 +213,10 @@ export class FormDocsV2Component implements OnInit {
         mArr.push(newObject);
 
 
-
       }
     }
 
   }
-
-
 
 
   public getHeading(str) {
@@ -264,17 +265,17 @@ export class FormDocsV2Component implements OnInit {
 
   public formSubmit() {
 
-    this.finalObject.push(this.title)
-    this.finalObject.push(this.author)
-    this.finalObject.push(this.data)
-console.log(
-"the final object"
-);
+    this.finalObject.push(this.title);
+    this.finalObject.push(this.author);
+    this.finalObject.push(this.data);
     console.log(
-  this.finalObject
-)
+      'the final object'
+    );
+    console.log(
+      this.finalObject
+    );
     this.docsService.generateDoc(this.finalObject).take(1).subscribe(res => {
-      console.log('res', res)
+      console.log('res', res);
       /*if (datUrl) {
         let contentType = datUrl.split(';')[0];
 
@@ -292,6 +293,6 @@ console.log(
         saveAs(blob, 'queryMaanJaa.docx');
 
       }*/
-    })
+    });
   }
 }
