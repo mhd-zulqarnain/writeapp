@@ -1,75 +1,73 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef, AfterContentChecked} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DocsService} from '../../services/docs.service';
 import {HttpClient} from '@angular/common/http';
 import {isDefined} from '@angular/compiler/src/util';
 import {forEach} from '@angular/router/src/utils/collection';
 import {el} from '@angular/platform-browser/testing/src/browser_util';
+import index from '@angular/cli/lib/cli';
 
 @Component({
   selector: 'app-test-form',
   templateUrl: './test-form.component.html',
   styleUrls: ['../form-docs-v2/form-docs-v2.component.css']
 })
-export class TestFormComponent implements OnInit {
+export class TestFormComponent  {
 
+  public para = {
+    id: 0,
+    hid: 'd3',
+    des: 'des',
+    cid: 'd4',
+    sub1: []
+  };
+  public data: any = [];
 
-  public data = [
-    {
-      id: 1,
-      hid: 'd3',
-      des: 'des',
-      cid: 'd4',
-      sub1: [
-        {
-          id: 2,
-          hid: 'd6',
-          des: 'dds',
-          cid: 'd7',
-          sub1: [
-            {
-              id: 3,
-              hid: 'd8',
-              des: 'dex',
-              cid: 'd9',
-              sub1: []
-            }
-          ]
-        }
-      ]
-    }
-
-  ];
   public forDocskeys = {};
   public count = 16;
   public docsForm: FormGroup;
 
-  constructor(private fb: FormBuilder, public docsService: DocsService, private http: HttpClient) {
+  constructor(private fb: FormBuilder, public docsService: DocsService, private http: HttpClient, public cdr: ChangeDetectorRef) {
     for (let i = 0; i < 85; i++) {
       this.forDocskeys['d' + i] = '';
     }
     this.docsForm = this.fb.group(
       this.forDocskeys
     );
+    this.data = [
+      {
+        id: 1,
+        hid: 'd3',
+        des: 'des',
+        cid: 'd4',
+        sub1: [
+          {
+            id: 2,
+            hid: 'd6',
+            des: 'dds',
+            cid: 'd7',
+            sub1: [
+              {
+                id: 3,
+                hid: 'd8',
+                des: 'dex',
+                cid: 'd9',
+                sub1: []
+              }
+            ]
+          }
+        ]
+      }
 
+    ];
   }
 
-  ngOnInit() {
-  }
 
-  indexTracker(index: number, value: any) {
 
-    return index;
-  }
+  trackById(index: number, value: any) {
 
-  indexinnernestedTracker(index: number, value: any) {
+    return value.id;
 
-    return index;
-  }
-
-  indexnestedTracker(index: number, value: any) {
-
-    return index;
   }
 
 
@@ -116,17 +114,11 @@ export class TestFormComponent implements OnInit {
             if (nesteditem.id == arry2Id) {
               nesteditem.sub1.forEach((dnesteditem, index1) => {
 
-                if (dnesteditem.id == arry1Id && index1 == type) {
+                if (dnesteditem.id == arry1Id) {
 
-                  let index = index1 + 1;
+                  let index = index1;
 
-                  let arr = this.data[index3].sub1[index2].sub1;
-                  let fs = arr.slice(0, index1);
-                  let rm = arr.slice(index1);
-                  fs.push(newObject);
-
-                  let fin = fs.concat(rm);
-                  this.data[index3].sub1[index2].sub1 = fin;
+                  this.data[index3].sub1[index2].sub1.splice(index1, 0, newObject);
 
                   /* if (JSON.stringify(dnesteditem) == nesteditem.sub1[index1]) {*/
                   //this.data[index3].sub1[index2].sub1.splice(index, 0, newObject);

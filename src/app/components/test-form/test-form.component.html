@@ -3,7 +3,7 @@
 
   <form novalidate [formGroup]="docsForm" class="form-container">
 
-    <div class="col-md-12  pos-relative" *ngFor="let item of data ; trackBy:indexTracker ">
+    <div class="col-md-12  pos-relative" *ngFor="let item of data ; trackBy:trackById ">
 
       <h3>the value</h3>
       <h5>{{getIndex(item.id)}}</h5>
@@ -21,7 +21,7 @@
 
       <div *ngIf="item.sub1" class="row">
 
-        <div class="col-md-6  pos-relative" *ngFor="let subitem of item.sub1 ;trackBy:indexinnernestedTracker ">
+        <div class="col-md-6  pos-relative" *ngFor="let subitem of item.sub1 ;trackBy:trackById ">
 
           <li class="fa fa-plus-circle  pos-absolute pos-absolute-add" style="padding:10px"
               (click)="addOption(null, subitem.id,  item.id,'heading')"></li>
@@ -35,9 +35,9 @@
 
           <div *ngIf="subitem.sub1" class="row">
 
-            <div class="col-md-6  pos-relative" *ngFor="let nestsubitem of subitem.sub1 ;trackBy:indexnestedTracker ;index as last  ">
+            <div class="col-md-6  pos-relative" *ngFor="let nestsubitem of subitem.sub1 ;trackBy:trackById  ">
               <li class="fa fa-plus-circle  pos-absolute pos-absolute-add" style="padding:10px"
-                  (click)="addOption(nestsubitem.id, subitem.id,  item.id,last)"></li>
+                  (click)="addOption(nestsubitem.id, subitem.id,  item.id,null)"></li>
 
               <div style="background: #807e68; width: 250px ">
                 <h3>id {{nestsubitem.id}}</h3><br>
